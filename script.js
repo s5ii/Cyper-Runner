@@ -8,7 +8,7 @@ let player, playerPos, velocityY, onGround;
 let score = 0;
 let level = 1;
 let platforms = [];
-const gravity = 0.5; // قفز سلس
+const gravity = 0.5;
 
 // إنشاء اللاعب
 function createPlayer(){
@@ -63,6 +63,7 @@ document.addEventListener("keyup", e=>{
   if(e.key.toUpperCase()==="W") keys.W=false;
 });
 
+// حركة جانبية منفصلة
 function movePlayer(){
   if(keys.A) playerPos.x -=5;
   if(keys.D) playerPos.x +=5;
@@ -76,11 +77,14 @@ function movePlayer(){
 
 // اللعبة
 function gameLoop(){
-  movePlayer(); // الحركة الجانبية تعمل دائمًا
+  // أولاً الحركة الجانبية تعمل دائمًا
+  movePlayer();
 
+  // الجاذبية
   velocityY -= gravity;
   playerPos.y += velocityY;
 
+  // الأرض
   if(playerPos.y <0){
     playerPos.y=0;
     velocityY=0;
@@ -88,6 +92,7 @@ function gameLoop(){
   }
 
   // تصادم المنصات فقط عند النزول
+  onGround=false; // إعادة ضبط
   platforms.forEach(p=>{
     const platX=p.el.offsetLeft;
     const platY=p.el.offsetTop;
