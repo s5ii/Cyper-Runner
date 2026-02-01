@@ -20,7 +20,7 @@ const platforms = [
   {x:750,y:0,w:100,h:10}
 ];
 
-// إنشاء عناصر HTML للمنصات
+// إنشاء HTML للمنصات
 platforms.forEach(p=>{
   const el = document.createElement("div");
   el.className="platform";
@@ -53,26 +53,30 @@ function updatePlayer(){
 
 // اللعبة
 function gameLoop(){
-  // الحركة الجانبية مستقلة تماماً
+  // الحركة الجانبية يدوياً
   if(keys.A) player.x -= speed;
   if(keys.D) player.x += speed;
-
-  // الحد الأقصى لليمين واليسار
   if(player.x <0) player.x=0;
   if(player.x + player.w > 800) player.x = 800 - player.w;
+
+  // القفز
+  if(keys.W && onGround){
+    velocityY = 10;
+    onGround=false;
+  }
 
   // الجاذبية
   velocityY -= gravity;
   player.y += velocityY;
 
-  // التصادم مع الأرض
+  // الأرض
   if(player.y <0){
-    player.y=0;
+    player.y = 0;
     velocityY=0;
     onGround=true;
   }
 
-  // تصادم المنصات (لا يوقف الحركة الأفقية)
+  // تصادم المنصات
   onGround=false;
   platforms.forEach(p=>{
     const top = p.y + p.h;
@@ -84,12 +88,6 @@ function gameLoop(){
       onGround=true;
     }
   });
-
-  // القفز
-  if(keys.W && onGround){
-    velocityY = 10;
-    onGround=false;
-  }
 
   updatePlayer();
   requestAnimationFrame(gameLoop);
