@@ -11,7 +11,8 @@ let player, playerPos, velocityY, onGround;
 let score = 0;
 let level = 1;
 let platforms = [];
-const gravity = 0.8;
+const gravity = 0.3; // أخف للجاذبية
+let keys = {left:false, right:false, up:false};
 
 // إنشاء اللاعب
 function createPlayer() {
@@ -32,7 +33,6 @@ function updatePlayer() {
 
 // إنشاء المنصات
 function createPlatforms() {
-  // تنظيف المنصات القديمة
   platforms.forEach(p => gameArea.removeChild(p.el));
   platforms = [];
 
@@ -43,7 +43,7 @@ function createPlatforms() {
     addPlatform(500, 100);
   } else if(level === 2){
     addPlatform(30, 80);
-    addPlatform(150, 180, true); // متحركة
+    addPlatform(150, 180, true);
     addPlatform(300, 250);
     addPlatform(450, 150, true);
   } else if(level === 3){
@@ -67,30 +67,39 @@ function addPlatform(x, y, moving=false){
 
 // التحكم
 document.addEventListener("keydown", (e) => {
-  if(e.key==="ArrowLeft") move(-10);
-  if(e.key==="ArrowRight") move(10);
-  if(e.key==="ArrowUp") jump();
+  if(e.key==="ArrowLeft") keys.left = true;
+  if(e.key==="ArrowRight") keys.right = true;
+  if(e.key==="ArrowUp") keys.up = true;
+});
+document.addEventListener("keyup", (e) => {
+  if(e.key==="ArrowLeft") keys.left = false;
+  if(e.key==="ArrowRight") keys.right = false;
+  if(e.key==="ArrowUp") keys.up = false;
 });
 
-function move(dx){
-  playerPos.x += dx;
-  if(playerPos.x <0) playerPos.x=0;
-  if(playerPos.x>570) playerPos.x=570;
-  updatePlayer();
-}
-
-function jump(){
-  if(onGround){
-    velocityY = 15;
-    onGround = false;
-    jumpSound.play();
-  }
-}
+const horizontalSpeed = 6; // سرعة الحركة الجانبية
 
 // اللعبة
 function gameLoop(){
+  // الحركة الجانبية تعمل دائمًا حتى أثناء القفز
+  if(keys.left) playerPos.x -= horizontalSpeed;
+  if(keys.right) playerPos.x += horizontalSpeed;
+
+  if(playerPos.x <0) playerPos.x = 0;
+  if(playerPos.x > 570) playerPos.x = 570;
+
+  // القفز
+  if(keys.up && onGround){
+    velocityY = 12; // ارتفاع القفز
+    onGround = false;
+    jumpSound.play();
+  }
+
+  // الجاذبية
   velocityY -= gravity;
   playerPos.y += velocityY;
+
+  // الأرض
   if(playerPos.y < 0){
     playerPos.y = 0;
     velocityY = 0;
@@ -98,6 +107,7 @@ function gameLoop(){
   }
 
   // تصادم مع المنصات
+  onGround = false;
   platforms.forEach(p => {
     const platX = p.el.offsetLeft;
     const platY = p.el.offsetTop; // from top
