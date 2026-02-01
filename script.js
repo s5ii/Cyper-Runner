@@ -1,57 +1,37 @@
 const gameArea = document.getElementById("gameArea");
 const levelSpan = document.getElementById("level");
 const scoreSpan = document.getElementById("score");
-const endScreen = document.getElementById("endScreen");
-const finalScore = document.getElementById("finalScore");
 
-let player, playerPos, velocityY, onGround;
-let score = 0;
-let level = 1;
-let platforms = [];
+let player = {x: 10, y: 0, w:30, h:30};
+let velocity = {x:0, y:0};
+let onGround = false;
 const gravity = 0.5;
+let keys = {A:false,D:false,W:false};
+let platforms = [
+  {x:50,y:0,w:100,h:10},
+  {x:150,y:50,w:100,h:10},
+  {x:300,y:100,w:100,h:10},
+  {x:450,y:50,w:100,h:10},
+  {x:600,y:120,w:100,h:10},
+  {x:750,y:80,w:100,h:10},
+  {x:800,y:0,w:100,h:10},
+];
 
-// إنشاء اللاعب
-function createPlayer(){
-  player = document.createElement("div");
-  player.id="player";
-  gameArea.appendChild(player);
-  playerPos={x:10,y:0};
-  velocityY=0;
-  onGround=false;
-  updatePlayer();
-}
-
-// تحديث موقع اللاعب
-function updatePlayer(){
-  player.style.left = playerPos.x + "px";
-  player.style.bottom = playerPos.y + "px";
-}
-
-// إنشاء منصات المرحلة الطويلة
-function createPlatforms(){
-  platforms.forEach(p=>gameArea.removeChild(p.el));
-  platforms = [];
-  addPlatform(50,0);
-  addPlatform(150,50);
-  addPlatform(300,100);
-  addPlatform(450,50);
-  addPlatform(600,120);
-  addPlatform(750,80);
-  addPlatform(800,0); // نهاية المرحلة
-}
-
-// إضافة منصة
-function addPlatform(x,y){
-  const p=document.createElement("div");
-  p.classList.add("platform");
-  p.style.left=x+"px";
-  p.style.bottom=y+"px";
-  gameArea.appendChild(p);
-  platforms.push({el:p,x:x,y:y});
-}
+// إنشاء عناصر HTML
+const playerEl = document.createElement("div");
+playerEl.id="player";
+gameArea.appendChild(playerEl);
+platforms.forEach(p=>{
+  const e=document.createElement("div");
+  e.className="platform";
+  e.style.left=p.x+"px";
+  e.style.bottom=p.y+"px";
+  e.style.width=p.w+"px";
+  e.style.height=p.h+"px";
+  gameArea.appendChild(e);
+});
 
 // التحكم
-const keys={A:false,D:false,W:false};
 document.addEventListener("keydown", e=>{
   if(e.key.toUpperCase()==="A") keys.A=true;
   if(e.key.toUpperCase()==="D") keys.D=true;
@@ -63,92 +43,48 @@ document.addEventListener("keyup", e=>{
   if(e.key.toUpperCase()==="W") keys.W=false;
 });
 
-// حركة اللاعب
-function movePlayer(){
-  // الحركة الجانبية مستقلة عن القفز
-  if(keys.A) playerPos.x -=5;
-  if(keys.D) playerPos.x +=5;
-  if(playerPos.x<0) playerPos.x=0;
-  if(playerPos.x>770) playerPos.x=770;
-
-  // القفز يعمل فقط عند الأرض
-  if(keys.W && onGround){
-    velocityY = 10;
-    onGround = false;
-  }
+// تحديث موقع اللاعب
+function updatePlayer(){
+  playerEl.style.left = player.x + "px";
+  playerEl.style.bottom = player.y + "px";
 }
 
 // اللعبة
 function gameLoop(){
-  movePlayer(); // دائمًا
+  // الحركة الجانبية مستقلة تماما
+  if(keys.A) player.x -=5;
+  if(keys.D) player.x +=5;
+
+  // القفز
+  if(keys.W && onGround){
+    velocity.y = 10;
+    onGround=false;
+  }
 
   // الجاذبية
-  velocityY -= gravity;
-  playerPos.y += velocityY;
+  velocity.y -= gravity;
+  player.y += velocity.y;
 
-  if(playerPos.y<0){
-    playerPos.y=0;
-    velocityY=0;
+  if(player.y <0){
+    player.y=0;
+    velocity.y=0;
     onGround=true;
   }
 
-  // تصادم المنصات (لن يؤثر على الحركة الجانبية)
+  // تصادم المنصات
   onGround=false;
   platforms.forEach(p=>{
-    const platX=p.el.offsetLeft;
-    const platY=p.el.offsetTop;
-    const platBottom=gameArea.offsetHeight - platY -10;
-    if(playerPos.x+30>platX && playerPos.x<platX+100 &&
-       playerPos.y>=platBottom-15 && playerPos.y<=platBottom &&
-       velocityY<=0){
-      playerPos.y=platBottom;
-      velocityY=0;
+    if(player.x + player.w > p.x && player.x < p.x + p.w &&
+       player.y >= p.y && player.y <= p.y + 20 &&
+       velocity.y <=0){
+      player.y = p.y;
+      velocity.y=0;
       onGround=true;
-      score++;
-      scoreSpan.innerText=score;
     }
   });
-
-  // الوصول لنهاية المرحلة
-  if(playerPos.x+30>=800){
-    finishStage();
-  }
 
   updatePlayer();
   requestAnimationFrame(gameLoop);
 }
 
-// إنهاء المرحلة
-function finishStage(){
-  level++;
-  levelSpan.innerText=level;
-  if(level>3){
-    endGame();
-  }else{
-    playerPos={x:10,y:0};
-    createPlatforms();
-  }
-}
-
-// نهاية اللعبة
-function endGame(){
-  finalScore.innerText=score;
-  endScreen.classList.remove("hidden");
-  gameArea.innerHTML="";
-}
-
-// إعادة اللعب
-function restartGame(){
-  score=0;
-  level=1;
-  scoreSpan.innerText=score;
-  levelSpan.innerText=level;
-  endScreen.classList.add("hidden");
-  createPlayer();
-  createPlatforms();
-}
-
-// بدء اللعبة
-createPlayer();
-createPlatforms();
 gameLoop();
