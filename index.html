@@ -1,25 +1,47 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ar">
 <head>
+  <meta charset="UTF-8">
+  <title>Cyber Runner الجبّارة</title>
+  <link rel="stylesheet" href="style.css">
 <meta charset="UTF-8">
 <title>Cyber Runner الجبّارة</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h1>🕹️ Cyber Runner: الجبّارة</h1>
 <h1>🕹️ Cyber Runner</h1>
 <div id="gameArea"></div>
 
+  <div id="gameArea"></div>
 <div class="info">
   <p>مرحلة: <span id="level">1</span></p>
   <p>نقاط: <span id="score">0</span></p>
 </div>
 
+  <div class="info">
+    <p>مرحلة: <span id="level">1</span></p>
+    <p>نقاط: <span id="score">0</span></p>
+    <div class="progress">
+      <div id="bar"></div>
+    </div>
+  </div>
 <div id="endScreen" class="hidden">
   <h2>🏆 المرحلة مكتملة!</h2>
   <p>نقاطك: <span id="finalScore"></span></p>
   <button onclick="restartGame()">إعادة اللعب</button>
 </div>
 
+  <div id="endScreen" class="hidden">
+    <h2>🏆 المرحلة مكتملة!</h2>
+    <p>نقاطك: <span id="finalScore"></span></p>
+    <button onclick="restartGame()">إعادة اللعب</button>
+  </div>
+
+  <audio id="jumpSound" src="jump.mp3"></audio>
+  <audio id="finishSound" src="finish.mp3"></audio>
+
+  <script src="script.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
