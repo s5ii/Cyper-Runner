@@ -11,7 +11,7 @@ let player, playerPos, velocityY, onGround;
 let score = 0;
 let level = 1;
 let platforms = [];
-const gravity = 0.8;
+const gravity = 0.4; // أقل جاذبية = قفز أطول
 
 // إنشاء اللاعب
 function createPlayer() {
@@ -36,21 +36,28 @@ function createPlatforms() {
   platforms.forEach(p => gameArea.removeChild(p.el));
   platforms = [];
 
+  // المرحلة أقصر → منصات متقاربة
   if(level === 1){
     addPlatform(50, 50);
-    addPlatform(200, 150);
-    addPlatform(350, 250);
-    addPlatform(500, 100);
+    addPlatform(150, 100);
+    addPlatform(250, 150);
+    addPlatform(350, 100);
+    addPlatform(450, 120);
+    addPlatform(550, 50); // نهاية المرحلة
   } else if(level === 2){
-    addPlatform(30, 80);
-    addPlatform(150, 180, true); // متحركة
-    addPlatform(300, 250);
-    addPlatform(450, 150, true);
+    addPlatform(30, 60);
+    addPlatform(130, 120, true);
+    addPlatform(230, 180);
+    addPlatform(330, 100, true);
+    addPlatform(430, 150);
+    addPlatform(550, 60);
   } else if(level === 3){
-    addPlatform(20, 70);
-    addPlatform(140, 180, true);
-    addPlatform(280, 220, true);
-    addPlatform(420, 150, true);
+    addPlatform(20, 50);
+    addPlatform(120, 100, true);
+    addPlatform(220, 150, true);
+    addPlatform(320, 120);
+    addPlatform(420, 170);
+    addPlatform(550, 50);
   }
 }
 
@@ -66,22 +73,25 @@ function addPlatform(x, y, moving=false){
 }
 
 // التحكم
+const keys = {A:false, D:false, W:false};
 document.addEventListener("keydown", (e) => {
-  if(e.key==="ArrowLeft") move(-10);
-  if(e.key==="ArrowRight") move(10);
-  if(e.key==="ArrowUp") jump();
+  if(e.key.toUpperCase()==="A") keys.A=true;
+  if(e.key.toUpperCase()==="D") keys.D=true;
+  if(e.key.toUpperCase()==="W") keys.W=true;
+});
+document.addEventListener("keyup", (e) => {
+  if(e.key.toUpperCase()==="A") keys.A=false;
+  if(e.key.toUpperCase()==="D") keys.D=false;
+  if(e.key.toUpperCase()==="W") keys.W=false;
 });
 
-function move(dx){
-  playerPos.x += dx;
-  if(playerPos.x <0) playerPos.x=0;
+function movePlayer(){
+  if(keys.A) playerPos.x -= 5;
+  if(keys.D) playerPos.x += 5;
+  if(playerPos.x<0) playerPos.x=0;
   if(playerPos.x>570) playerPos.x=570;
-  updatePlayer();
-}
-
-function jump(){
-  if(onGround){
-    velocityY = 15;
+  if(keys.W && onGround){
+    velocityY = 12; // ارتفاع القفز
     onGround = false;
     jumpSound.play();
   }
@@ -89,25 +99,27 @@ function jump(){
 
 // اللعبة
 function gameLoop(){
+  movePlayer();
+
   velocityY -= gravity;
   playerPos.y += velocityY;
-  if(playerPos.y < 0){
-    playerPos.y = 0;
-    velocityY = 0;
+  if(playerPos.y <0){
+    playerPos.y =0;
+    velocityY=0;
     onGround = true;
   }
 
   // تصادم مع المنصات
-  platforms.forEach(p => {
+  platforms.forEach(p=>{
     const platX = p.el.offsetLeft;
-    const platY = p.el.offsetTop; // from top
+    const platY = p.el.offsetTop;
     const platBottom = gameArea.offsetHeight - platY - 10;
 
     if(playerPos.x + 30 > platX && playerPos.x < platX + 100 &&
        playerPos.y <= platBottom && playerPos.y >= platBottom - 15 &&
-       velocityY < 0){
+       velocityY <= 0){
       playerPos.y = platBottom;
-      velocityY = 0;
+      velocityY =0;
       onGround = true;
       score += 1;
       scoreSpan.innerText = score;
@@ -132,7 +144,7 @@ function finishStage(){
   } else{
     level++;
     levelSpan.innerText = level;
-    playerPos = {x:10,y:0};
+    playerPos = {x:10, y:0};
     createPlatforms();
   }
 }
@@ -146,17 +158,4 @@ function endGame(){
 
 // إعادة اللعب
 function restartGame(){
-  score = 0;
-  level = 1;
-  scoreSpan.innerText = score;
-  levelSpan.innerText = level;
-  bar.style.width = "0%";
-  endScreen.classList.add("hidden");
-  createPlayer();
-  createPlatforms();
-}
-
-// بدء اللعبة
-createPlayer();
-createPlatforms();
-gameLoop();
+  score = 0
