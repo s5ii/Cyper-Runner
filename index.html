@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacker Terminal Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="bootScreen">
+  <p>Booting System...</p>
+  <p>Loading Modules...</p>
+  <p>Connecting to Secure Server...</p>
+  <button onclick="startGame()">▶ بدء الاختراق</button>
+</div>
+
+<div id="game" class="hidden">
+  <h1>🟩 HACKER TERMINAL</h1>
+
+  <div class="top">
+    <span id="level">LEVEL: 1</span>
+    <span id="timer">TIME: 30</span>
+  </div>
+
+  <div class="progress">
+    <div id="bar"></div>
+  </div>
+
+  <div id="terminal"></div>
+
+  <input type="text" id="input" placeholder="> اكتب الأمر هنا..." oninput="playSound()">
+  <button onclick="submitCommand()">EXECUTE</button>
+
+  <audio id="sound" src="typing.mp3"></audio>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
