@@ -7,7 +7,7 @@ body {
 
 #gameArea {
   position: relative;
-  width: 800px; /* مرحلة أطول */
+  width: 800px; /* مرحلة طويلة */
   height: 300px;
   margin: 20px auto;
   background: #111;
