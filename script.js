@@ -81,7 +81,7 @@ function move(dx){
 
 function jump(){
   if(onGround){
-    velocityY = 15;
+    velocityY = 30;
     onGround = false;
     jumpSound.play();
   }
@@ -160,6 +160,7 @@ function restartGame(){
 createPlayer();
 createPlatforms();
 gameLoop();
+
 
 
 
