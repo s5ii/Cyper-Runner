@@ -11,7 +11,7 @@ let player, playerPos, velocityY, onGround;
 let score = 0;
 let level = 1;
 let platforms = [];
-const gravity = 1.9;
+const gravity = 0.8;
 
 // إنشاء اللاعب
 function createPlayer() {
@@ -160,6 +160,7 @@ function restartGame(){
 createPlayer();
 createPlatforms();
 gameLoop();
+
 
 
 
