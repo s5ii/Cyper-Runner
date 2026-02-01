@@ -1,0 +1,30 @@
+#bar {
+  height: 12px;
+  width: 0%;
+  background: #00ff00;
+  transition: width 0.5s;
+}
+
+#terminal {
+  background: black;
+  border: 1px solid #00ff00;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 90%;
+  padding: 8px;
+  background: black;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+}
+
+@keyframes flicker {
+  0% {opacity: 1;}
+  50% {opacity: 0.4;}
+  100% {opacity: 1;}
+}
