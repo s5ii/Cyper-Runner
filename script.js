@@ -30,7 +30,7 @@ const LEVEL_WIDTH = 2000;
 let platforms = [], windForce = 0, lowGravityZone = false;
 
 // فيزياء محسنة
-let jumpPower = 13, moveSpeed = 3;
+let jumpPower = 13, moveSpeed = 2;
 let gravityUp = 0.6, gravityDown = 1.2;
 
 // إنشاء اللاعب – أخضر
@@ -183,3 +183,4 @@ function restartGame(){
 createPlayer();
 createPlatforms();
 gameLoop();
+
