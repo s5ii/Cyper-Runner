@@ -23,7 +23,7 @@ let lowGravityZone = false;
 // ===== فيزياء ناعمة وبطيئة =====
 let gravityUp = 0.7;
 let gravityDown = 0.9;
-const jumpPower = 9;
+const jumpPower = 7;
 const moveSpeed = 2;
 
 // إنشاء اللاعب
@@ -274,4 +274,5 @@ function restartGame() {
 createPlayer();
 createPlatforms();
 gameLoop();
+
 
