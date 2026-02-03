@@ -11,6 +11,7 @@ let player, playerPos, velocityY, onGround;
 let rotation = 0;
 let tilt = 0;
 let direction = 1; // 1 = يمين | -1 = يسار
+let keys = {}; // للتحكم المستمر
 let score = 0;
 let level = 1;
 let platforms = [];
@@ -70,37 +71,47 @@ function addPlatform(x, y, moving=false){
   platforms.push({el: p, x: x, y: y, moving});
 }
 
-// التحكم
+// التحكم المستمر
 document.addEventListener("keydown", (e) => {
-  if(e.key === "ArrowLeft"){
-    direction = -1;
-    move(-10);
-  }
-  if(e.key === "ArrowRight"){
-    direction = 1;
-    move(10);
-  }
-  if(e.key === "ArrowUp") jump();
+  keys[e.key] = true;
+  e.preventDefault();
+});
+
+document.addEventListener("keyup", (e) => {
+  keys[e.key] = false;
 });
 
 function move(dx){
   playerPos.x += dx;
   if(playerPos.x < 0) playerPos.x = 0;
   if(playerPos.x > 570) playerPos.x = 570;
-  updatePlayer();
 }
 
 function jump(){
   if(onGround){
     velocityY = 16;
     onGround = false;
-    rotation += 20 * direction; // لفه قوية مع القفزة
+    rotation += 20 * direction;
     jumpSound.play();
   }
 }
 
 // اللعبة
 function gameLoop(){
+
+  // حركة يمين ويسار مستمرة
+  if(keys["ArrowLeft"]){
+    direction = -1;
+    move(-5);
+  }
+  if(keys["ArrowRight"]){
+    direction = 1;
+    move(5);
+  }
+  if(keys["ArrowUp"]){
+    jump();
+  }
+
   velocityY -= gravity;
   playerPos.y += velocityY;
 
@@ -109,7 +120,6 @@ function gameLoop(){
     rotation += 10 * direction;
     tilt = Math.max(-15, Math.min(15, tilt + (5 * direction)));
   } else {
-    // رجوع ناعم للاستقامة
     rotation *= 0.85;
     tilt *= 0.8;
   }
