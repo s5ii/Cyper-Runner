@@ -1,4 +1,4 @@
-// script.js كامل للعبة
+// script.js النهائي – كل شيء أخضر والكاميرا يمين فقط
 const gameArea = document.getElementById("gameArea");
 gameArea.style.width = "580px";
 gameArea.style.height = "400px";
@@ -10,7 +10,7 @@ const gameAreaInner = document.createElement("div");
 gameAreaInner.id = "gameAreaInner";
 gameAreaInner.style.position = "absolute";
 gameAreaInner.style.left = "0px";
-gameAreaInner.style.bottom = "0px";
+gameAreaInner.style.bottom = "0px"; // ثابت للأرض
 gameArea.appendChild(gameAreaInner);
 
 const levelSpan = document.getElementById("level");
@@ -29,16 +29,17 @@ const LEVEL_WIDTH = 2000;
 
 let platforms = [], windForce = 0, lowGravityZone = false;
 
-// فيزياء ناعمة
-let gravityUp = 0.9, gravityDown = 1.0, jumpPower = 16, moveSpeed = 2;
+// فيزياء محسنة
+let jumpPower = 13, moveSpeed = 3;
+let gravityUp = 0.6, gravityDown = 1.2;
 
-// إنشاء اللاعب
+// إنشاء اللاعب – أخضر
 function createPlayer() {
   player = document.createElement("div");
   player.id = "player";
   player.style.width = "30px";
   player.style.height = "30px";
-  player.style.background = "red";
+  player.style.background = "green"; // الشخصية أخضر
   player.style.position = "absolute";
   gameAreaInner.appendChild(player);
   playerPos = { x: 10, y: 0 };
@@ -56,14 +57,14 @@ function updatePlayer() {
   player.style.transform = `rotate(${rotation}deg) skewX(${tilt}deg)`;
 }
 
-// إضافة منصة
+// إضافة منصة – كل المنصات أخضر
 function addPlatform(x, y, moving=false, disappearing=false){
   const p = document.createElement("div");
   p.classList.add("platform");
   p.style.position = "absolute";
   p.style.width = "100px";
   p.style.height = "15px";
-  p.style.background = moving ? "orange" : "blue";
+  p.style.background = "green"; // كل المنصات أخضر
   p.style.left = x + "px";
   p.style.bottom = y + "px";
   gameAreaInner.appendChild(p);
@@ -77,7 +78,7 @@ function createPlatforms(){
   platforms = [];
   windForce = 0; lowGravityZone = false;
 
-  const count = 20 + Math.floor(level/2); // عدد المنصات لكل مرحلة
+  const count = 20 + Math.floor(level/2);
   const stepX = (LEVEL_WIDTH - 100) / count;
   let startY = 50;
 
@@ -121,7 +122,7 @@ function gameLoop(){
 
   if(windForce!==0) playerPos.x+=windForce;
 
-  if(lowGravityZone){gravityUp=0.4;gravityDown=0.6;}else{gravityUp=0.9;gravityDown=1.0;}
+  if(lowGravityZone){gravityUp=0.4;gravityDown=0.6;}else{gravityUp=0.6;gravityDown=1.2;}
 
   const gravity = velocityY>0?gravityUp:gravityDown;
   velocityY-=gravity; playerPos.y+=velocityY;
@@ -144,9 +145,10 @@ function gameLoop(){
     }
   });
 
-  // كاميرا تتبع اللاعب
+  // كاميرا تتبع اللاعب يمين فقط
   const cameraLeft = Math.min(Math.max(playerPos.x - 200,0),LEVEL_WIDTH-580);
   gameAreaInner.style.left = -cameraLeft + "px";
+  gameAreaInner.style.bottom = "0px"; // ثابت للأرض
 
   // نهاية المرحلة
   if(playerPos.x + 30 >= LEVEL_WIDTH){
@@ -181,5 +183,3 @@ function restartGame(){
 createPlayer();
 createPlatforms();
 gameLoop();
-
-
