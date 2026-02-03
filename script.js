@@ -1,4 +1,6 @@
+// JS كامل
 const gameArea = document.getElementById("gameArea");
+const gameAreaInner = document.getElementById("gameAreaInner");
 const levelSpan = document.getElementById("level");
 const scoreSpan = document.getElementById("score");
 const bar = document.getElementById("bar");
@@ -8,29 +10,25 @@ const jumpSound = document.getElementById("jumpSound");
 const finishSound = document.getElementById("finishSound");
 
 let player, playerPos, velocityY, onGround;
-let rotation = 0;
-let tilt = 0;
-let direction = 1;
-let keys = {};
-let score = 0;
-let level = 1;
+let rotation = 0, tilt = 0, direction = 1;
+let keys = {}, score = 0, level = 1;
 const MAX_LEVEL = 30;
+const LEVEL_WIDTH = 2000;
 
-let platforms = [];
-let windForce = 0;
-let lowGravityZone = false;
+let platforms = [], windForce = 0, lowGravityZone = false;
 
-// ===== فيزياء ناعمة وبطيئة =====
-let gravityUp = 0.9;
-let gravityDown = 1.0;
-const jumpPower = 13;
-const moveSpeed = 2;
+// فيزياء ناعمة
+let gravityUp = 0.9, gravityDown = 1.0, jumpPower = 7, moveSpeed = 3;
 
 // إنشاء اللاعب
 function createPlayer() {
   player = document.createElement("div");
   player.id = "player";
-  gameArea.appendChild(player);
+  player.style.width = "30px";
+  player.style.height = "30px";
+  player.style.background = "red";
+  player.style.position = "absolute";
+  gameAreaInner.appendChild(player);
   playerPos = { x: 10, y: 0 };
   velocityY = 0;
   onGround = false;
@@ -39,7 +37,7 @@ function createPlayer() {
   updatePlayer();
 }
 
-// تحديث موقع اللاعب
+// تحديث اللاعب + دوران
 function updatePlayer() {
   player.style.left = playerPos.x + "px";
   player.style.bottom = playerPos.y + "px";
@@ -47,183 +45,100 @@ function updatePlayer() {
 }
 
 // إضافة منصة
-function addPlatform(x, y, moving = false, disappearing = false) {
+function addPlatform(x, y, moving=false, disappearing=false){
   const p = document.createElement("div");
   p.classList.add("platform");
-  if (moving) p.classList.add("moving");
+  p.style.position = "absolute";
+  p.style.width = "100px";
+  p.style.height = "15px";
+  p.style.background = "blue";
   p.style.left = x + "px";
   p.style.bottom = y + "px";
-  gameArea.appendChild(p);
+  if(moving) p.style.background = "orange";
+  gameAreaInner.appendChild(p);
 
-  platforms.push({
-    el: p,
-    x,
-    y,
-    moving,
-    disappearing,
-    active: true,
-    dir: 1
-  });
+  platforms.push({el:p, x, y, moving, disappearing, active:true, dir:1});
 }
 
-// ===== نظام مراحل طويل ومرتب =====
-function createPlatforms() {
+// إنشاء مراحل طويلة ومرتبة
+function createPlatforms(){
   platforms.forEach(p => p.el.remove());
   platforms = [];
+  windForce = 0; lowGravityZone = false;
 
-  windForce = 0;
-  lowGravityZone = false;
+  const count = 20 + Math.floor(level/2); // عدد المنصات لكل مرحلة
+  const stepX = (LEVEL_WIDTH - 100) / count;
+  let startY = 50;
 
-  const count = 6 + Math.floor(level / 5); // عدد المنصات يزيد تدريجياً
-  const stepY = 60; // ارتفاع ثابت بين المنصات
-  const startY = 50;
+  for(let i=0;i<count;i++){
+    let x = i * stepX + Math.random()*20;
+    let y = startY + i*30 + Math.random()*20;
 
-  for (let i = 0; i < count; i++) {
-    const x = 40 + i * (480 / count); // توزيع مرتب أفقي
-    const y = startY + i * stepY;
+    const moving = level>=6 && level<16 && Math.random()>0.5;
+    const disappearing = level>=11 && level<26 && Math.random()>0.5;
 
-    const moving = level >= 6 && level < 16 && Math.random() > 0.5;
-    const disappearing = level >= 11 && level < 26 && Math.random() > 0.5;
-
-    addPlatform(x, y, moving, disappearing);
+    addPlatform(x,y,moving,disappearing);
   }
 
-  // رياح في مراحل 16-30
-  if (level >= 16) {
-    windForce = (Math.random() > 0.5 ? 1 : -1) * (0.4 + level * 0.03);
-  }
-
-  // جاذبية منخفضة في مراحل 21-30
-  if (level >= 21) {
-    lowGravityZone = true;
-  }
+  if(level>=16) windForce = (Math.random()>0.5?1:-1)*(0.4+level*0.03);
+  if(level>=21) lowGravityZone = true;
 }
 
-// التحكم المستمر
-document.addEventListener("keydown", (e) => {
-  keys[e.key] = true;
-  e.preventDefault();
-});
-document.addEventListener("keyup", (e) => {
-  keys[e.key] = false;
-});
+// تحكم
+document.addEventListener("keydown",(e)=>{keys[e.key]=true;e.preventDefault();});
+document.addEventListener("keyup",(e)=>{keys[e.key]=false;});
 
-// الحركة
-function move(dx) {
-  playerPos.x += dx;
-  if (playerPos.x < 0) playerPos.x = 0;
-  if (playerPos.x > 570) playerPos.x = 570;
-}
-
-// القفز
-function jump() {
-  if (onGround) {
-    velocityY = jumpPower;
-    onGround = false;
-    rotation += 15 * direction;
-    jumpSound.play();
-  }
-}
+// الحركة والقفز
+function move(dx){playerPos.x+=dx; if(playerPos.x<0)playerPos.x=0; if(playerPos.x>LEVEL_WIDTH-30)playerPos.x=LEVEL_WIDTH-30;}
+function jump(){if(onGround){velocityY=jumpPower;onGround=false;rotation+=15*direction;jumpSound.play();}}
 
 // تحديث المنصات المتحركة
-function updatePlatforms() {
-  platforms.forEach(p => {
-    if (!p.moving || !p.active) return;
-    p.x += p.dir * 1.5;
-    if (p.x < 20 || p.x > 520) p.dir *= -1;
-    p.el.style.left = p.x + "px";
+function updatePlatforms(){
+  platforms.forEach(p=>{
+    if(!p.moving || !p.active) return;
+    p.x+=p.dir*1.5;
+    if(p.x<20 || p.x>LEVEL_WIDTH-120)p.dir*=-1;
+    p.el.style.left=p.x+"px";
   });
 }
 
-// ===== حلقة اللعبة =====
-function gameLoop() {
+// حلقة اللعبة
+function gameLoop(){
+  if(keys["ArrowLeft"]){direction=-1;move(-moveSpeed);}
+  if(keys["ArrowRight"]){direction=1;move(moveSpeed);}
+  if(keys["ArrowUp"]){jump();}
 
-  // حركة مستمرة
-  if (keys["ArrowLeft"]) {
-    direction = -1;
-    move(-moveSpeed);
-  }
-  if (keys["ArrowRight"]) {
-    direction = 1;
-    move(moveSpeed);
-  }
-  if (keys["ArrowUp"]) {
-    jump();
-  }
+  if(windForce!==0) playerPos.x+=windForce;
 
-  // تأثير الرياح
-  if (windForce !== 0) {
-    playerPos.x += windForce;
-  }
+  if(lowGravityZone){gravityUp=0.4;gravityDown=0.6;}else{gravityUp=0.9;gravityDown=1.0;}
 
-  // جاذبية منخفضة
-  if (lowGravityZone) {
-    gravityUp = 0.4;
-    gravityDown = 0.6;
-  } else {
-    gravityUp = 0.9;
-    gravityDown = 1.0;
-  }
+  const gravity = velocityY>0?gravityUp:gravityDown;
+  velocityY-=gravity; playerPos.y+=velocityY;
 
-  // فيزياء
-  const gravity = velocityY > 0 ? gravityUp : gravityDown;
-  velocityY -= gravity;
-  playerPos.y += velocityY;
+  if(!onGround){rotation+=5*direction;tilt=Math.max(-10,Math.min(10,tilt+3*direction));}else{rotation*=0.8;tilt*=0.7;}
+  if(playerPos.y<0){playerPos.y=0;velocityY=0;onGround=true;}
 
-  // دوران سينمائي
-  if (!onGround) {
-    rotation += 5 * direction;
-    tilt = Math.max(-10, Math.min(10, tilt + (3 * direction)));
-  } else {
-    rotation *= 0.8;
-    tilt *= 0.7;
-  }
-
-  // الأرض
-  if (playerPos.y < 0) {
-    playerPos.y = 0;
-    velocityY = 0;
-    onGround = true;
-  }
-
-  // تحديث المنصات المتحركة
   updatePlatforms();
 
-  // تصادم مع المنصات
-  platforms.forEach(p => {
-    if (!p.active) return;
+  platforms.forEach(p=>{
+    if(!p.active) return;
     const platX = p.el.offsetLeft;
     const platY = p.el.offsetTop;
-    const platBottom = gameArea.offsetHeight - platY - 10;
+    const platBottom = gameArea.offsetHeight - platY -10;
 
-    if (
-      playerPos.x + 30 > platX &&
-      playerPos.x < platX + 100 &&
-      playerPos.y <= platBottom &&
-      playerPos.y >= platBottom - 15 &&
-      velocityY < 0
-    ) {
-      playerPos.y = platBottom;
-      velocityY = 0;
-      onGround = true;
-
-      score++;
-      scoreSpan.innerText = score;
-      bar.style.width = Math.min(score * 2, 100) + "%";
-
-      // منصات تختفي
-      if (p.disappearing) {
-        p.active = false;
-        p.el.style.opacity = "0.3";
-        setTimeout(() => {
-          p.el.remove();
-        }, 300);
-      }
+    if(playerPos.x+30>platX && playerPos.x<platX+100 && playerPos.y<=platBottom && playerPos.y>=platBottom-15 && velocityY<0){
+      playerPos.y=platBottom;velocityY=0;onGround=true;
+      score++;scoreSpan.innerText=score; bar.style.width=Math.min(score*2,100)+"%";
+      if(p.disappearing){p.active=false;p.el.style.opacity="0.3";setTimeout(()=>p.el.remove(),300);}
     }
   });
 
+  // كاميرا تتبع اللاعب
+  const cameraLeft = Math.min(Math.max(playerPos.x - 200,0),LEVEL_WIDTH-580);
+  gameAreaInner.style.left = -cameraLeft + "px";
+
   // نهاية المرحلة
-  if (playerPos.x + 30 >= 580 && playerPos.y > 0) {
+  if(playerPos.x + 30 >= LEVEL_WIDTH){
     finishStage();
   }
 
@@ -232,39 +147,23 @@ function gameLoop() {
 }
 
 // إنهاء المرحلة
-function finishStage() {
+function finishStage(){
   finishSound.play();
-  if (level >= MAX_LEVEL) {
-    endGame();
-  } else {
-    level++;
-    levelSpan.innerText = level;
-    playerPos = { x: 10, y: 0 };
-    velocityY = 0;
-    onGround = false;
-    rotation = 0;
-    tilt = 0;
-    createPlatforms();
-  }
+  if(level>=MAX_LEVEL){endGame();return;}
+  level++; levelSpan.innerText=level;
+  playerPos={x:10,y:0}; velocityY=0; onGround=false; rotation=0; tilt=0;
+  createPlatforms();
 }
 
 // نهاية اللعبة
-function endGame() {
-  finalScore.innerText = score;
-  endScreen.classList.remove("hidden");
-  gameArea.innerHTML = "";
+function endGame(){
+  finalScore.innerText = score; endScreen.classList.remove("hidden"); gameAreaInner.innerHTML="";
 }
 
 // إعادة اللعب
-function restartGame() {
-  score = 0;
-  level = 1;
-  scoreSpan.innerText = score;
-  levelSpan.innerText = level;
-  bar.style.width = "0%";
-  endScreen.classList.add("hidden");
-  createPlayer();
-  createPlatforms();
+function restartGame(){
+  score=0; level=1; scoreSpan.innerText=score; levelSpan.innerText=level; bar.style.width="0%";
+  endScreen.classList.add("hidden"); createPlayer(); createPlatforms();
 }
 
 // بدء اللعبة
