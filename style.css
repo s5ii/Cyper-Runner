@@ -70,10 +70,6 @@ body::before {
     animation: fadeIn 0.5s ease;
 }
 
-.screen.active {
-    display: flex;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
