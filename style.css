@@ -469,7 +469,8 @@ body::before {
 ======================================== */
 #gameScreen {
     background: var(--bg-dark);
-    display: block;
+    flex-direction: column;
+    padding: 20px;
 }
 
 .game-hud {
@@ -520,7 +521,7 @@ body::before {
 
 #gameCanvas {
     display: block;
-    margin: 0 auto;
+    margin: 80px auto 0 auto;
     background: linear-gradient(180deg, #1a1a3e 0%, #0f0f2e 100%);
     border: 3px solid rgba(8, 217, 214, 0.5);
     box-shadow: 
