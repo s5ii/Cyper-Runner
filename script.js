@@ -609,7 +609,7 @@ function loadLevel(levelNum) {
         coins.push(new Coin(720, 260));
         coins.push(new Coin(390, 160));
         
-        enemies.push(new Enemy(520, p3.y - CONFIG.enemy.height, p3, 'stationary'));
+        enemies.push(new Enemy(520, p3.y - CONFIG.enemy.height, p3, 'patrol'));
         
     // ========== المرحلة 6: السرعة ===========
     } else if (levelNum === 6) {
@@ -659,7 +659,7 @@ function loadLevel(levelNum) {
         coins.push(new Coin(180, 100));
         
         enemies.push(new Enemy(340, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(680, p4.y - CONFIG.enemy.height, p4, 'stationary'));
+        enemies.push(new Enemy(680, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         fires.push(new Fire(250, 530));
         fires.push(new Fire(580, 530));
         
@@ -724,7 +724,7 @@ function loadLevel(levelNum) {
         coins.push(new Coin(340, 110));
         
         enemies.push(new Enemy(270, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(440, p3.y - CONFIG.enemy.height, p3, 'stationary'));
+        enemies.push(new Enemy(440, p3.y - CONFIG.enemy.height, p3, 'patrol'));
         enemies.push(new Enemy(610, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         fires.push(new Fire(150, 530));
         fires.push(new Fire(500, 530));
@@ -764,7 +764,7 @@ function loadLevel(levelNum) {
         
         enemies.push(new Enemy(260, p2.y - CONFIG.enemy.height, p2, 'patrol'));
         enemies.push(new Enemy(410, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(710, p5.y - CONFIG.enemy.height, p5, 'stationary'));
+        enemies.push(new Enemy(710, p5.y - CONFIG.enemy.height, p5, 'patrol'));
         enemies.push(new Enemy(370, p7.y - CONFIG.enemy.height, p7, 'patrol'));
         fires.push(new Fire(500, 530));
         fires.push(new Fire(800, 530));
@@ -843,7 +843,7 @@ function loadLevel(levelNum) {
         enemies.push(new Enemy(220, p1.y - CONFIG.enemy.height, p1, 'patrol'));
         enemies.push(new Enemy(370, p2.y - CONFIG.enemy.height, p2, 'patrol'));
         enemies.push(new Enemy(520, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(820, p5.y - CONFIG.enemy.height, p5, 'stationary'));
+        enemies.push(new Enemy(820, p5.y - CONFIG.enemy.height, p5, 'patrol'));
         fires.push(new Fire(280, 530));
         fires.push(new Fire(430, 530));
         fires.push(new Fire(580, 530));
@@ -927,7 +927,7 @@ function loadLevel(levelNum) {
         enemies.push(new Enemy(370, p3.y - CONFIG.enemy.height, p3, 'patrol'));
         enemies.push(new Enemy(510, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         enemies.push(new Enemy(650, p5.y - CONFIG.enemy.height, p5, 'patrol'));
-        enemies.push(new Enemy(790, p6.y - CONFIG.enemy.height, p6, 'stationary'));
+        enemies.push(new Enemy(790, p6.y - CONFIG.enemy.height, p6, 'patrol'));
         
         fires.push(new Fire(140, 530));
         fires.push(new Fire(280, 530));
@@ -978,7 +978,7 @@ function loadLevel(levelNum) {
         enemies.push(new Enemy(450, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         enemies.push(new Enemy(570, p5.y - CONFIG.enemy.height, p5, 'patrol'));
         enemies.push(new Enemy(690, p6.y - CONFIG.enemy.height, p6, 'patrol'));
-        enemies.push(new Enemy(810, p7.y - CONFIG.enemy.height, p7, 'stationary'));
+        enemies.push(new Enemy(810, p7.y - CONFIG.enemy.height, p7, 'patrol'));
         
         for (let i = 0; i < 10; i++) {
             fires.push(new Fire(i * 100 + 30, 530));
