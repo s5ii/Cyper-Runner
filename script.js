@@ -698,6 +698,12 @@ function startGame() {
     lives = 3;
     gameTime = 0;
     
+    // التأكد من أن Canvas جاهز
+    if (!canvas) {
+        canvas = document.getElementById('gameCanvas');
+        ctx = canvas.getContext('2d');
+    }
+    
     canvas.width = CONFIG.canvas.width;
     canvas.height = CONFIG.canvas.height;
     
@@ -709,6 +715,10 @@ function startGame() {
     
     clearInterval(gameInterval);
     clearInterval(timeInterval);
+    
+    // رسم فوري للإطار الأول
+    gameLoop();
+    
     gameInterval = setInterval(gameLoop, 1000 / 60); // 60 FPS
     timeInterval = setInterval(updateTime, 1000);
 }
