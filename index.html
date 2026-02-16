@@ -1,32 +1,174 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Cyber Runner الجبّارة</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مغامرات النينجا - لعبة المنصات الجبارة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🕹️ Cyber Runner: الجبّارة</h1>
-
-  <div id="gameArea"></div>
-
-  <div class="info">
-    <p>مرحلة: <span id="level">1</span></p>
-    <p>نقاط: <span id="score">0</span></p>
-    <div class="progress">
-      <div id="bar"></div>
+    <!-- شاشة البداية -->
+    <div id="startScreen" class="screen active">
+        <div class="stars"></div>
+        <div class="title-container">
+            <h1 class="game-title">
+                <span class="title-glow">مغامرات</span>
+                <span class="title-main">النينجا</span>
+            </h1>
+            <p class="game-subtitle">اهرب من الأعداء واجمع الكنوز!</p>
+            <div class="start-buttons">
+                <button id="startBtn" class="btn btn-primary">
+                    <span class="btn-text">ابدأ المغامرة</span>
+                    <span class="btn-icon">⚔️</span>
+                </button>
+                <button id="instructionsBtn" class="btn btn-secondary">
+                    <span class="btn-text">التعليمات</span>
+                    <span class="btn-icon">📜</span>
+                </button>
+            </div>
+        </div>
+        <div class="floating-elements">
+            <div class="float-coin">💎</div>
+            <div class="float-coin">⭐</div>
+            <div class="float-coin">🔥</div>
+        </div>
     </div>
-  </div>
 
-  <div id="endScreen" class="hidden">
-    <h2>🏆 المرحلة مكتملة!</h2>
-    <p>نقاطك: <span id="finalScore"></span></p>
-    <button onclick="restartGame()">إعادة اللعب</button>
-  </div>
+    <!-- شاشة التعليمات -->
+    <div id="instructionsScreen" class="screen">
+        <div class="modal-content">
+            <h2 class="modal-title">كيف تلعب؟</h2>
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <div class="key-icon">→ ←</div>
+                    <p>الأسهم للتحرك</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="key-icon">SPACE</div>
+                    <p>للقفز</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="icon-large">💎</div>
+                    <p>اجمع الألماس</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="icon-large">👹</div>
+                    <p>تجنب الأعداء</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="icon-large">🔥</div>
+                    <p>احذر النار</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="icon-large">⭐</div>
+                    <p>احصل على 3 نجوم</p>
+                </div>
+            </div>
+            <button id="backBtn" class="btn btn-primary">عودة</button>
+        </div>
+    </div>
 
-  <audio id="jumpSound" src="jump.mp3"></audio>
-  <audio id="finishSound" src="finish.mp3"></audio>
+    <!-- شاشة اللعب -->
+    <div id="gameScreen" class="screen">
+        <!-- شريط المعلومات العلوي -->
+        <div class="game-hud">
+            <div class="hud-item">
+                <span class="hud-icon">💎</span>
+                <span class="hud-value" id="scoreDisplay">0</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-icon">⏱️</span>
+                <span class="hud-value" id="timeDisplay">0:00</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-icon">❤️</span>
+                <span class="hud-value" id="livesDisplay">3</span>
+            </div>
+            <div class="hud-item level-display">
+                <span class="hud-label">المستوى</span>
+                <span class="hud-value" id="levelDisplay">1</span>
+            </div>
+        </div>
 
-  <script src="script.js"></script>
+        <!-- منطقة اللعب -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- زر الإيقاف المؤقت -->
+        <button id="pauseBtn" class="pause-btn">⏸️</button>
+    </div>
+
+    <!-- شاشة الإيقاف المؤقت -->
+    <div id="pauseScreen" class="screen">
+        <div class="modal-content">
+            <h2 class="modal-title">⏸️ اللعبة متوقفة</h2>
+            <div class="pause-buttons">
+                <button id="resumeBtn" class="btn btn-primary">
+                    <span class="btn-text">متابعة</span>
+                    <span class="btn-icon">▶️</span>
+                </button>
+                <button id="restartBtn" class="btn btn-secondary">
+                    <span class="btn-text">إعادة البدء</span>
+                    <span class="btn-icon">🔄</span>
+                </button>
+                <button id="quitBtn" class="btn btn-danger">
+                    <span class="btn-text">الخروج</span>
+                    <span class="btn-icon">🚪</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة نهاية اللعبة -->
+    <div id="gameOverScreen" class="screen">
+        <div class="modal-content">
+            <h2 class="modal-title game-over-title">💀 انتهت اللعبة</h2>
+            <div class="final-stats">
+                <div class="stat-item">
+                    <span class="stat-label">النقاط</span>
+                    <span class="stat-value" id="finalScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">المستوى</span>
+                    <span class="stat-value" id="finalLevel">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">الوقت</span>
+                    <span class="stat-value" id="finalTime">0:00</span>
+                </div>
+            </div>
+            <div class="stars-earned" id="starsEarned"></div>
+            <button id="playAgainBtn" class="btn btn-primary">
+                <span class="btn-text">العب مجدداً</span>
+                <span class="btn-icon">🔄</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- شاشة الفوز بالمستوى -->
+    <div id="levelCompleteScreen" class="screen">
+        <div class="modal-content">
+            <h2 class="modal-title victory-title">🎉 رائع! أكملت المستوى</h2>
+            <div class="level-stats">
+                <div class="stat-item">
+                    <span class="stat-label">النقاط المكتسبة</span>
+                    <span class="stat-value" id="levelScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">الوقت</span>
+                    <span class="stat-value" id="levelTime">0:00</span>
+                </div>
+            </div>
+            <div class="stars-earned" id="levelStars"></div>
+            <button id="nextLevelBtn" class="btn btn-primary">
+                <span class="btn-text">المستوى التالي</span>
+                <span class="btn-icon">➡️</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
