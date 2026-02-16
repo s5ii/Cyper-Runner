@@ -61,8 +61,6 @@ function checkLogin() {
     const savedUser = localStorage.getItem('ninjaGameUser');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
-        showScreen('startScreen');
-        updateUserDisplay();
         return true;
     }
     return false;
@@ -1184,6 +1182,7 @@ function drawBackground() {
 // إدارة الشاشات
 // ========================================
 function showScreen(screenId) {
+    console.log('🖥️ عرض الشاشة:', screenId);
     // إخفاء جميع الشاشات
     document.querySelectorAll('.screen').forEach(screen => {
         screen.style.display = 'none';
@@ -1192,6 +1191,9 @@ function showScreen(screenId) {
     const targetScreen = document.getElementById(screenId);
     if (targetScreen) {
         targetScreen.style.display = 'flex';
+        console.log('✅ تم عرض الشاشة:', screenId);
+    } else {
+        console.error('❌ الشاشة غير موجودة:', screenId);
     }
 }
 
@@ -1317,8 +1319,21 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = CONFIG.canvas.width;
     canvas.height = CONFIG.canvas.height;
     
+    console.log('🎮 تحميل اللعبة...');
+    console.log('📦 البيانات المحفوظة:', {
+        user: localStorage.getItem('ninjaGameUser'),
+        account: localStorage.getItem('ninjaGameAccount')
+    });
+    
     // التحقق من تسجيل الدخول
-    if (!checkLogin()) {
+    if (checkLogin()) {
+        // المستخدم مسجل دخول بالفعل
+        console.log('✅ المستخدم مسجل دخول:', currentUser);
+        updateUserDisplay();
+        showScreen('startScreen');
+    } else {
+        // المستخدم غير مسجل
+        console.log('❌ المستخدم غير مسجل، عرض شاشة التسجيل');
         initAuth();
     }
     
