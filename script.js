@@ -558,7 +558,7 @@ function loadLevel(levelNum) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
         let p1 = new Platform(150, 480, 150, 'normal');
         platforms.push(p1);
-        let p2 = new Platform(400, 400, 200, 'normal');
+        let p2 = new Platform(400, 400, 250, 'normal');
         platforms.push(p2);
         let p3 = new Platform(700, 320, 150, 'normal');
         platforms.push(p3);
@@ -592,15 +592,15 @@ function loadLevel(levelNum) {
     // ========== المرحلة 5: التوازن والدقة ===========
     } else if (levelNum === 5) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(120, 480, 100, 'normal');
+        let p1 = new Platform(120, 480, 120, 'normal');
         platforms.push(p1);
-        let p2 = new Platform(300, 420, 100, 'moving');
+        let p2 = new Platform(300, 420, 120, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(500, 360, 100, 'normal');
+        let p3 = new Platform(500, 360, 150, 'normal');
         platforms.push(p3);
-        let p4 = new Platform(680, 300, 100, 'moving');
+        let p4 = new Platform(680, 300, 120, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(350, 200, 120, 'normal');
+        let p5 = new Platform(350, 200, 150, 'normal');
         platforms.push(p5);
         
         coins.push(new Coin(160, 440));
@@ -609,20 +609,20 @@ function loadLevel(levelNum) {
         coins.push(new Coin(720, 260));
         coins.push(new Coin(390, 160));
         
-        enemies.push(new Enemy(510, p3.y - CONFIG.enemy.height, p3, 'stationary'));
+        enemies.push(new Enemy(520, p3.y - CONFIG.enemy.height, p3, 'stationary'));
         
     // ========== المرحلة 6: السرعة ===========
     } else if (levelNum === 6) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(100, 500, 120, 'moving');
+        let p1 = new Platform(100, 500, 140, 'moving');
         platforms.push(p1);
-        let p2 = new Platform(320, 440, 120, 'moving');
+        let p2 = new Platform(320, 440, 140, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(540, 380, 120, 'moving');
+        let p3 = new Platform(540, 380, 140, 'moving');
         platforms.push(p3);
-        let p4 = new Platform(760, 320, 120, 'normal');
+        let p4 = new Platform(760, 320, 160, 'normal');
         platforms.push(p4);
-        let p5 = new Platform(200, 220, 150, 'normal');
+        let p5 = new Platform(200, 220, 180, 'normal');
         platforms.push(p5);
         
         coins.push(new Coin(140, 460));
@@ -632,23 +632,23 @@ function loadLevel(levelNum) {
         coins.push(new Coin(250, 180));
         coins.push(new Coin(50, 540));
         
-        enemies.push(new Enemy(770, p4.y - CONFIG.enemy.height, p4, 'patrol'));
+        enemies.push(new Enemy(780, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         fires.push(new Fire(450, 530));
         
     // ========== المرحلة 7: الممرات الضيقة ===========
     } else if (levelNum === 7) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(150, 480, 90, 'normal');
+        let p1 = new Platform(150, 480, 110, 'normal');
         platforms.push(p1);
-        let p2 = new Platform(320, 420, 90, 'normal');
+        let p2 = new Platform(320, 420, 120, 'normal');
         platforms.push(p2);
-        let p3 = new Platform(490, 360, 90, 'normal');
+        let p3 = new Platform(490, 360, 110, 'normal');
         platforms.push(p3);
-        let p4 = new Platform(660, 300, 90, 'normal');
+        let p4 = new Platform(660, 300, 120, 'normal');
         platforms.push(p4);
-        let p5 = new Platform(400, 200, 120, 'moving');
+        let p5 = new Platform(400, 200, 150, 'moving');
         platforms.push(p5);
-        let p6 = new Platform(150, 140, 100, 'normal');
+        let p6 = new Platform(150, 140, 120, 'normal');
         platforms.push(p6);
         
         coins.push(new Coin(180, 440));
@@ -658,27 +658,27 @@ function loadLevel(levelNum) {
         coins.push(new Coin(440, 160));
         coins.push(new Coin(180, 100));
         
-        enemies.push(new Enemy(330, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(670, p4.y - CONFIG.enemy.height, p4, 'stationary'));
+        enemies.push(new Enemy(340, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(680, p4.y - CONFIG.enemy.height, p4, 'stationary'));
         fires.push(new Fire(250, 530));
         fires.push(new Fire(580, 530));
         
     // ========== المرحلة 8: الأبراج ===========
     } else if (levelNum === 8) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(100, 480, 100, 'normal');
+        let p1 = new Platform(100, 480, 120, 'normal');
         platforms.push(p1);
-        let p2 = new Platform(100, 380, 100, 'normal');
+        let p2 = new Platform(100, 380, 120, 'normal');
         platforms.push(p2);
-        let p3 = new Platform(100, 280, 100, 'normal');
+        let p3 = new Platform(100, 280, 120, 'normal');
         platforms.push(p3);
-        let p4 = new Platform(300, 400, 120, 'moving');
+        let p4 = new Platform(300, 400, 150, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(550, 320, 100, 'normal');
+        let p5 = new Platform(550, 320, 130, 'normal');
         platforms.push(p5);
-        let p6 = new Platform(750, 240, 120, 'normal');
+        let p6 = new Platform(750, 240, 150, 'normal');
         platforms.push(p6);
-        let p7 = new Platform(450, 160, 150, 'normal');
+        let p7 = new Platform(450, 160, 180, 'normal');
         platforms.push(p7);
         
         coins.push(new Coin(140, 440));
@@ -689,29 +689,29 @@ function loadLevel(levelNum) {
         coins.push(new Coin(790, 200));
         coins.push(new Coin(500, 120));
         
-        enemies.push(new Enemy(560, p5.y - CONFIG.enemy.height, p5, 'patrol'));
-        enemies.push(new Enemy(760, p6.y - CONFIG.enemy.height, p6, 'patrol'));
+        enemies.push(new Enemy(570, p5.y - CONFIG.enemy.height, p5, 'patrol'));
+        enemies.push(new Enemy(770, p6.y - CONFIG.enemy.height, p6, 'patrol'));
         fires.push(new Fire(220, 530));
         fires.push(new Fire(650, 530));
         
     // ========== المرحلة 9: متاهة المنصات ===========
     } else if (levelNum === 9) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(80, 500, 100, 'normal');
+        let p1 = new Platform(80, 500, 120, 'normal');
         platforms.push(p1);
-        let p2 = new Platform(250, 450, 100, 'moving');
+        let p2 = new Platform(250, 450, 130, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(420, 400, 100, 'normal');
+        let p3 = new Platform(420, 400, 130, 'normal');
         platforms.push(p3);
-        let p4 = new Platform(590, 350, 100, 'moving');
+        let p4 = new Platform(590, 350, 130, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(200, 300, 100, 'normal');
+        let p5 = new Platform(200, 300, 120, 'normal');
         platforms.push(p5);
-        let p6 = new Platform(400, 250, 100, 'moving');
+        let p6 = new Platform(400, 250, 130, 'moving');
         platforms.push(p6);
-        let p7 = new Platform(650, 200, 100, 'normal');
+        let p7 = new Platform(650, 200, 120, 'normal');
         platforms.push(p7);
-        let p8 = new Platform(300, 150, 140, 'normal');
+        let p8 = new Platform(300, 150, 160, 'normal');
         platforms.push(p8);
         
         coins.push(new Coin(120, 460));
@@ -723,9 +723,9 @@ function loadLevel(levelNum) {
         coins.push(new Coin(690, 160));
         coins.push(new Coin(340, 110));
         
-        enemies.push(new Enemy(260, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(430, p3.y - CONFIG.enemy.height, p3, 'stationary'));
-        enemies.push(new Enemy(600, p4.y - CONFIG.enemy.height, p4, 'patrol'));
+        enemies.push(new Enemy(270, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(440, p3.y - CONFIG.enemy.height, p3, 'stationary'));
+        enemies.push(new Enemy(610, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         fires.push(new Fire(150, 530));
         fires.push(new Fire(500, 530));
         fires.push(new Fire(750, 530));
@@ -733,23 +733,23 @@ function loadLevel(levelNum) {
     // ========== المرحلة 10: التحدي الكبير ===========
     } else if (levelNum === 10) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(90, 520, 80, 'moving');
+        let p1 = new Platform(90, 520, 100, 'moving');
         platforms.push(p1);
-        let p2 = new Platform(240, 470, 80, 'moving');
+        let p2 = new Platform(240, 470, 110, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(390, 420, 80, 'moving');
+        let p3 = new Platform(390, 420, 110, 'moving');
         platforms.push(p3);
-        let p4 = new Platform(540, 370, 80, 'moving');
+        let p4 = new Platform(540, 370, 110, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(690, 320, 90, 'normal');
+        let p5 = new Platform(690, 320, 120, 'normal');
         platforms.push(p5);
-        let p6 = new Platform(150, 270, 90, 'moving');
+        let p6 = new Platform(150, 270, 110, 'moving');
         platforms.push(p6);
-        let p7 = new Platform(350, 220, 90, 'normal');
+        let p7 = new Platform(350, 220, 120, 'normal');
         platforms.push(p7);
-        let p8 = new Platform(550, 170, 90, 'moving');
+        let p8 = new Platform(550, 170, 110, 'moving');
         platforms.push(p8);
-        let p9 = new Platform(250, 120, 120, 'normal');
+        let p9 = new Platform(250, 120, 140, 'normal');
         platforms.push(p9);
         
         coins.push(new Coin(120, 480));
@@ -762,29 +762,29 @@ function loadLevel(levelNum) {
         coins.push(new Coin(580, 130));
         coins.push(new Coin(290, 80));
         
-        enemies.push(new Enemy(250, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(400, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(700, p5.y - CONFIG.enemy.height, p5, 'stationary'));
-        enemies.push(new Enemy(360, p7.y - CONFIG.enemy.height, p7, 'patrol'));
+        enemies.push(new Enemy(260, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(410, p3.y - CONFIG.enemy.height, p3, 'patrol'));
+        enemies.push(new Enemy(710, p5.y - CONFIG.enemy.height, p5, 'stationary'));
+        enemies.push(new Enemy(370, p7.y - CONFIG.enemy.height, p7, 'patrol'));
         fires.push(new Fire(500, 530));
         fires.push(new Fire(800, 530));
         
     // ========== المرحلة 11: الجحيم الناري ===========
     } else if (levelNum === 11) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(120, 500, 100, 'normal');
+        let p1 = new Platform(120, 500, 120, 'normal');
         platforms.push(p1);
-        let p2 = new Platform(320, 440, 100, 'moving');
+        let p2 = new Platform(320, 440, 130, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(520, 380, 100, 'normal');
+        let p3 = new Platform(520, 380, 130, 'normal');
         platforms.push(p3);
-        let p4 = new Platform(720, 320, 100, 'moving');
+        let p4 = new Platform(720, 320, 130, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(200, 260, 100, 'normal');
+        let p5 = new Platform(200, 260, 120, 'normal');
         platforms.push(p5);
-        let p6 = new Platform(450, 200, 100, 'moving');
+        let p6 = new Platform(450, 200, 130, 'moving');
         platforms.push(p6);
-        let p7 = new Platform(650, 140, 100, 'normal');
+        let p7 = new Platform(650, 140, 120, 'normal');
         platforms.push(p7);
         
         coins.push(new Coin(160, 460));
@@ -797,9 +797,9 @@ function loadLevel(levelNum) {
         coins.push(new Coin(50, 540));
         coins.push(new Coin(950, 540));
         
-        enemies.push(new Enemy(330, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(530, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(730, p4.y - CONFIG.enemy.height, p4, 'patrol'));
+        enemies.push(new Enemy(340, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(540, p3.y - CONFIG.enemy.height, p3, 'patrol'));
+        enemies.push(new Enemy(740, p4.y - CONFIG.enemy.height, p4, 'patrol'));
         fires.push(new Fire(80, 530));
         fires.push(new Fire(240, 530));
         fires.push(new Fire(400, 530));
@@ -810,23 +810,23 @@ function loadLevel(levelNum) {
     // ========== المرحلة 12: القفزات المستحيلة ===========
     } else if (levelNum === 12) {
         platforms.push(new Platform(0, 580, 120, 'normal'));
-        let p1 = new Platform(200, 520, 70, 'moving');
+        let p1 = new Platform(200, 520, 90, 'moving');
         platforms.push(p1);
-        let p2 = new Platform(350, 470, 70, 'moving');
+        let p2 = new Platform(350, 470, 90, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(500, 420, 70, 'moving');
+        let p3 = new Platform(500, 420, 90, 'moving');
         platforms.push(p3);
-        let p4 = new Platform(650, 370, 70, 'moving');
+        let p4 = new Platform(650, 370, 90, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(800, 320, 100, 'normal');
+        let p5 = new Platform(800, 320, 120, 'normal');
         platforms.push(p5);
-        let p6 = new Platform(150, 270, 80, 'moving');
+        let p6 = new Platform(150, 270, 100, 'moving');
         platforms.push(p6);
-        let p7 = new Platform(350, 220, 80, 'moving');
+        let p7 = new Platform(350, 220, 100, 'moving');
         platforms.push(p7);
-        let p8 = new Platform(550, 170, 80, 'moving');
+        let p8 = new Platform(550, 170, 100, 'moving');
         platforms.push(p8);
-        let p9 = new Platform(350, 100, 150, 'normal');
+        let p9 = new Platform(350, 100, 180, 'normal');
         platforms.push(p9);
         
         coins.push(new Coin(220, 480));
@@ -840,10 +840,10 @@ function loadLevel(levelNum) {
         coins.push(new Coin(400, 60));
         coins.push(new Coin(60, 540));
         
-        enemies.push(new Enemy(210, p1.y - CONFIG.enemy.height, p1, 'patrol'));
-        enemies.push(new Enemy(360, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(510, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(810, p5.y - CONFIG.enemy.height, p5, 'stationary'));
+        enemies.push(new Enemy(220, p1.y - CONFIG.enemy.height, p1, 'patrol'));
+        enemies.push(new Enemy(370, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(520, p3.y - CONFIG.enemy.height, p3, 'patrol'));
+        enemies.push(new Enemy(820, p5.y - CONFIG.enemy.height, p5, 'stationary'));
         fires.push(new Fire(280, 530));
         fires.push(new Fire(430, 530));
         fires.push(new Fire(580, 530));
@@ -852,23 +852,23 @@ function loadLevel(levelNum) {
     // ========== المرحلة 13: سباق الوقت ===========
     } else if (levelNum === 13) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(100, 510, 90, 'moving');
+        let p1 = new Platform(100, 510, 110, 'moving');
         platforms.push(p1);
-        let p2 = new Platform(250, 460, 90, 'moving');
+        let p2 = new Platform(250, 460, 110, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(400, 410, 90, 'moving');
+        let p3 = new Platform(400, 410, 110, 'moving');
         platforms.push(p3);
-        let p4 = new Platform(550, 360, 90, 'moving');
+        let p4 = new Platform(550, 360, 110, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(700, 310, 90, 'moving');
+        let p5 = new Platform(700, 310, 110, 'moving');
         platforms.push(p5);
-        let p6 = new Platform(200, 240, 90, 'moving');
+        let p6 = new Platform(200, 240, 110, 'moving');
         platforms.push(p6);
-        let p7 = new Platform(400, 180, 90, 'moving');
+        let p7 = new Platform(400, 180, 110, 'moving');
         platforms.push(p7);
-        let p8 = new Platform(600, 120, 90, 'moving');
+        let p8 = new Platform(600, 120, 110, 'moving');
         platforms.push(p8);
-        let p9 = new Platform(350, 60, 130, 'normal');
+        let p9 = new Platform(350, 60, 150, 'normal');
         platforms.push(p9);
         
         coins.push(new Coin(130, 470));
@@ -882,38 +882,38 @@ function loadLevel(levelNum) {
         coins.push(new Coin(390, 20));
         coins.push(new Coin(900, 540));
         
-        enemies.push(new Enemy(110, p1.y - CONFIG.enemy.height, p1, 'patrol'));
-        enemies.push(new Enemy(260, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(410, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(560, p4.y - CONFIG.enemy.height, p4, 'patrol'));
-        enemies.push(new Enemy(710, p5.y - CONFIG.enemy.height, p5, 'patrol'));
+        enemies.push(new Enemy(120, p1.y - CONFIG.enemy.height, p1, 'patrol'));
+        enemies.push(new Enemy(270, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(420, p3.y - CONFIG.enemy.height, p3, 'patrol'));
+        enemies.push(new Enemy(570, p4.y - CONFIG.enemy.height, p4, 'patrol'));
+        enemies.push(new Enemy(720, p5.y - CONFIG.enemy.height, p5, 'patrol'));
         fires.push(new Fire(350, 530));
         fires.push(new Fire(650, 530));
         
     // ========== المرحلة 14: الفوضى ===========
     } else if (levelNum === 14) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(80, 520, 80, 'moving');
+        let p1 = new Platform(80, 520, 100, 'moving');
         platforms.push(p1);
-        let p2 = new Platform(220, 480, 70, 'moving');
+        let p2 = new Platform(220, 480, 90, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(350, 440, 80, 'moving');
+        let p3 = new Platform(350, 440, 100, 'moving');
         platforms.push(p3);
-        let p4 = new Platform(490, 400, 70, 'moving');
+        let p4 = new Platform(490, 400, 90, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(630, 360, 80, 'moving');
+        let p5 = new Platform(630, 360, 100, 'moving');
         platforms.push(p5);
-        let p6 = new Platform(770, 320, 90, 'normal');
+        let p6 = new Platform(770, 320, 110, 'normal');
         platforms.push(p6);
-        let p7 = new Platform(150, 280, 80, 'moving');
+        let p7 = new Platform(150, 280, 100, 'moving');
         platforms.push(p7);
-        let p8 = new Platform(320, 240, 70, 'moving');
+        let p8 = new Platform(320, 240, 90, 'moving');
         platforms.push(p8);
-        let p9 = new Platform(500, 200, 80, 'moving');
+        let p9 = new Platform(500, 200, 100, 'moving');
         platforms.push(p9);
-        let p10 = new Platform(680, 160, 70, 'moving');
+        let p10 = new Platform(680, 160, 90, 'moving');
         platforms.push(p10);
-        let p11 = new Platform(300, 100, 120, 'normal');
+        let p11 = new Platform(300, 100, 140, 'normal');
         platforms.push(p11);
         
         for (let i = 0; i < 12; i++) {
@@ -922,12 +922,12 @@ function loadLevel(levelNum) {
             coins.push(new Coin(x, y));
         }
         
-        enemies.push(new Enemy(90, p1.y - CONFIG.enemy.height, p1, 'patrol'));
-        enemies.push(new Enemy(230, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(360, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(500, p4.y - CONFIG.enemy.height, p4, 'patrol'));
-        enemies.push(new Enemy(640, p5.y - CONFIG.enemy.height, p5, 'patrol'));
-        enemies.push(new Enemy(780, p6.y - CONFIG.enemy.height, p6, 'stationary'));
+        enemies.push(new Enemy(100, p1.y - CONFIG.enemy.height, p1, 'patrol'));
+        enemies.push(new Enemy(240, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(370, p3.y - CONFIG.enemy.height, p3, 'patrol'));
+        enemies.push(new Enemy(510, p4.y - CONFIG.enemy.height, p4, 'patrol'));
+        enemies.push(new Enemy(650, p5.y - CONFIG.enemy.height, p5, 'patrol'));
+        enemies.push(new Enemy(790, p6.y - CONFIG.enemy.height, p6, 'stationary'));
         
         fires.push(new Fire(140, 530));
         fires.push(new Fire(280, 530));
@@ -939,31 +939,31 @@ function loadLevel(levelNum) {
     // ========== المرحلة 15: النهائي الأسطوري ===========
     } else if (levelNum === 15) {
         platforms.push(new Platform(0, 580, 1000, 'normal'));
-        let p1 = new Platform(70, 530, 60, 'moving');
+        let p1 = new Platform(70, 530, 80, 'moving');
         platforms.push(p1);
-        let p2 = new Platform(190, 490, 60, 'moving');
+        let p2 = new Platform(190, 490, 80, 'moving');
         platforms.push(p2);
-        let p3 = new Platform(310, 450, 60, 'moving');
+        let p3 = new Platform(310, 450, 80, 'moving');
         platforms.push(p3);
-        let p4 = new Platform(430, 410, 60, 'moving');
+        let p4 = new Platform(430, 410, 80, 'moving');
         platforms.push(p4);
-        let p5 = new Platform(550, 370, 60, 'moving');
+        let p5 = new Platform(550, 370, 80, 'moving');
         platforms.push(p5);
-        let p6 = new Platform(670, 330, 60, 'moving');
+        let p6 = new Platform(670, 330, 80, 'moving');
         platforms.push(p6);
-        let p7 = new Platform(790, 290, 80, 'normal');
+        let p7 = new Platform(790, 290, 100, 'normal');
         platforms.push(p7);
-        let p8 = new Platform(120, 250, 70, 'moving');
+        let p8 = new Platform(120, 250, 90, 'moving');
         platforms.push(p8);
-        let p9 = new Platform(270, 210, 70, 'moving');
+        let p9 = new Platform(270, 210, 90, 'moving');
         platforms.push(p9);
-        let p10 = new Platform(420, 170, 70, 'moving');
+        let p10 = new Platform(420, 170, 90, 'moving');
         platforms.push(p10);
-        let p11 = new Platform(570, 130, 70, 'moving');
+        let p11 = new Platform(570, 130, 90, 'moving');
         platforms.push(p11);
-        let p12 = new Platform(720, 90, 70, 'moving');
+        let p12 = new Platform(720, 90, 90, 'moving');
         platforms.push(p12);
-        let p13 = new Platform(350, 40, 150, 'normal');
+        let p13 = new Platform(350, 40, 180, 'normal');
         platforms.push(p13);
         
         for (let i = 0; i < 15; i++) {
@@ -972,13 +972,13 @@ function loadLevel(levelNum) {
             coins.push(new Coin(x, y));
         }
         
-        enemies.push(new Enemy(80, p1.y - CONFIG.enemy.height, p1, 'patrol'));
-        enemies.push(new Enemy(200, p2.y - CONFIG.enemy.height, p2, 'patrol'));
-        enemies.push(new Enemy(320, p3.y - CONFIG.enemy.height, p3, 'patrol'));
-        enemies.push(new Enemy(440, p4.y - CONFIG.enemy.height, p4, 'patrol'));
-        enemies.push(new Enemy(560, p5.y - CONFIG.enemy.height, p5, 'patrol'));
-        enemies.push(new Enemy(680, p6.y - CONFIG.enemy.height, p6, 'patrol'));
-        enemies.push(new Enemy(800, p7.y - CONFIG.enemy.height, p7, 'stationary'));
+        enemies.push(new Enemy(90, p1.y - CONFIG.enemy.height, p1, 'patrol'));
+        enemies.push(new Enemy(210, p2.y - CONFIG.enemy.height, p2, 'patrol'));
+        enemies.push(new Enemy(330, p3.y - CONFIG.enemy.height, p3, 'patrol'));
+        enemies.push(new Enemy(450, p4.y - CONFIG.enemy.height, p4, 'patrol'));
+        enemies.push(new Enemy(570, p5.y - CONFIG.enemy.height, p5, 'patrol'));
+        enemies.push(new Enemy(690, p6.y - CONFIG.enemy.height, p6, 'patrol'));
+        enemies.push(new Enemy(810, p7.y - CONFIG.enemy.height, p7, 'stationary'));
         
         for (let i = 0; i < 10; i++) {
             fires.push(new Fire(i * 100 + 30, 530));
