@@ -2,639 +2,951 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>مغامرات النينجا ⚔️</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#ff2e63;--secondary:#08d9d6;--accent:#ffbb00;--bg:#070b1a;--bg2:#0d1230;--card:rgba(12,16,45,0.97);--neon:0 0 20px rgba(8,217,214,0.5);--fire:0 0 20px rgba(255,46,99,0.5);--gold:0 0 15px rgba(255,187,0,0.5);}
+:root{--p:#ff2e63;--s:#08d9d6;--a:#ffbb00;--bg:#070b1a;--card:rgba(12,16,45,.97);--neon:0 0 20px rgba(8,217,214,.5);--fire:0 0 20px rgba(255,46,99,.5);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Cairo',sans-serif;background:var(--bg);color:#fff;overflow:hidden;height:100vh;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:var(--bg);color:#fff;}
 .screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:10;}
-.auth-bg-effects{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,46,99,.15),transparent 50%),radial-gradient(circle at 80% 70%,rgba(8,217,214,.15),transparent 50%);pointer-events:none;}
-.auth-wrapper{position:relative;z-index:2;width:100%;max-width:500px;padding:1.5rem;animation:fadeUp .6s ease;}
-.auth-logo{text-align:center;margin-bottom:1.2rem;}
-.logo-top{display:block;font-size:2.4rem;color:var(--secondary);text-shadow:0 0 20px var(--secondary),0 0 40px var(--secondary);font-family:'Amiri',serif;font-weight:700;}
-.logo-bottom{display:block;font-size:3.2rem;background:linear-gradient(135deg,#ff2e63,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-family:'Amiri',serif;font-weight:700;}
-.auth-card{background:var(--card);border:2px solid rgba(8,217,214,.3);border-radius:20px;padding:2rem;box-shadow:var(--neon),0 20px 60px rgba(0,0,0,.8);}
-.auth-card-title{font-size:1.5rem;color:var(--secondary);text-align:center;margin-bottom:1.5rem;font-weight:700;}
-.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem;}
-.field label{font-size:.95rem;color:rgba(255,255,255,.8);font-weight:700;}
-.field input{padding:.9rem 1rem;border-radius:12px;border:2px solid rgba(8,217,214,.25);background:rgba(8,217,214,.08);color:#fff;font-size:1rem;font-family:'Cairo',sans-serif;text-align:right;transition:all .3s;}
-.field input:focus{outline:none;border-color:var(--secondary);background:rgba(8,217,214,.15);box-shadow:var(--neon);}
-.field input::placeholder{color:rgba(255,255,255,.35);}
-.auth-error{min-height:1.2rem;color:#ff5e5e;font-size:.85rem;text-align:center;font-weight:700;margin-bottom:.3rem;}
-.auth-submit-btn{width:100%;padding:1rem;border:none;border-radius:12px;background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-size:1.1rem;font-weight:900;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .3s;letter-spacing:.05em;}
-.auth-submit-btn:hover{transform:translateY(-3px);box-shadow:0 0 30px rgba(255,46,99,.7);}
-.auth-switch{text-align:center;margin-top:1.2rem;color:rgba(255,255,255,.6);font-size:.9rem;}
-.auth-switch a{color:var(--secondary);font-weight:700;text-decoration:none;}
-.auth-switch a:hover{color:var(--accent);}
-#mainScreen{display:none;flex-direction:column;overflow:hidden;background:var(--bg);}
-.main-stars{position:absolute;inset:0;pointer-events:none;}
-.main-stars::before{content:'';position:absolute;inset:0;background-image:radial-gradient(2px 2px at 10% 20%,white,transparent),radial-gradient(1px 1px at 30% 50%,white,transparent),radial-gradient(2px 2px at 60% 15%,white,transparent),radial-gradient(1px 1px at 80% 70%,white,transparent),radial-gradient(2px 2px at 50% 85%,rgba(8,217,214,.8),transparent),radial-gradient(1px 1px at 20% 80%,rgba(255,187,0,.8),transparent),radial-gradient(2px 2px at 90% 30%,rgba(255,46,99,.8),transparent),radial-gradient(1px 1px at 40% 60%,white,transparent),radial-gradient(2px 2px at 70% 40%,white,transparent),radial-gradient(1px 1px at 15% 45%,white,transparent);animation:twinkle 4s infinite alternate;opacity:.5;}
+
+/* ── AUTH ── */
+.auth-bg{position:absolute;inset:0;background:radial-gradient(circle at 25% 35%,rgba(255,46,99,.15),transparent 50%),radial-gradient(circle at 75% 65%,rgba(8,217,214,.15),transparent 50%);pointer-events:none;}
+.auth-wrap{position:relative;z-index:2;width:min(480px,92vw);padding:1.2rem;animation:fadeUp .5s ease;}
+.auth-logo{text-align:center;margin-bottom:1rem;}
+.logo-a{display:block;font-size:clamp(1.6rem,5vw,2.2rem);color:var(--s);text-shadow:0 0 25px var(--s);font-family:'Amiri',serif;font-weight:700;}
+.logo-b{display:block;font-size:clamp(2rem,6vw,2.8rem);background:linear-gradient(135deg,#ff2e63,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-family:'Amiri',serif;font-weight:700;}
+.auth-card{background:var(--card);border:2px solid rgba(8,217,214,.3);border-radius:20px;padding:clamp(1.2rem,4vw,2rem);box-shadow:var(--neon),0 20px 60px rgba(0,0,0,.8);}
+.auth-card h2{font-size:clamp(1.1rem,3.5vw,1.4rem);color:var(--s);text-align:center;margin-bottom:1.2rem;font-weight:700;}
+.field{display:flex;flex-direction:column;gap:.32rem;margin-bottom:.9rem;}
+.field label{font-size:clamp(.8rem,2.5vw,.92rem);color:rgba(255,255,255,.8);font-weight:700;}
+.field input{padding:.8rem 1rem;border-radius:12px;border:2px solid rgba(8,217,214,.25);background:rgba(8,217,214,.08);color:#fff;font-size:clamp(.88rem,2.5vw,.95rem);font-family:'Cairo',sans-serif;text-align:right;transition:all .3s;width:100%;}
+.field input:focus{outline:none;border-color:var(--s);background:rgba(8,217,214,.15);box-shadow:var(--neon);}
+.field input::placeholder{color:rgba(255,255,255,.3);}
+.auth-err{min-height:1rem;color:#ff5e5e;font-size:.82rem;text-align:center;font-weight:700;}
+.auth-btn{width:100%;padding:.9rem;border:none;border-radius:12px;background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-size:1rem;font-weight:900;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .3s;margin-top:.35rem;}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 0 25px rgba(255,46,99,.6);}
+.auth-sw{text-align:center;margin-top:.9rem;color:rgba(255,255,255,.55);font-size:.86rem;}
+.auth-sw a{color:var(--s);font-weight:700;text-decoration:none;}
+
+/* ── MAIN (PC + Tablet + Mobile) ── */
+#mainScreen{display:none;flex-direction:column;width:100%;height:100%;}
+.stars-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.stars-bg::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(1px 1px at 5% 15%,#fff,transparent),radial-gradient(2px 2px at 15% 45%,rgba(8,217,214,.8),transparent),
+  radial-gradient(1px 1px at 25% 75%,#fff,transparent),radial-gradient(2px 2px at 35% 25%,rgba(255,187,0,.7),transparent),
+  radial-gradient(1px 1px at 45% 60%,#fff,transparent),radial-gradient(2px 2px at 55% 10%,rgba(255,46,99,.8),transparent),
+  radial-gradient(1px 1px at 65% 85%,#fff,transparent),radial-gradient(2px 2px at 75% 50%,rgba(8,217,214,.6),transparent),
+  radial-gradient(1px 1px at 85% 30%,#fff,transparent),radial-gradient(1px 1px at 92% 70%,#fff,transparent);
+  animation:twinkle 3s infinite alternate;}
 @keyframes twinkle{0%{opacity:.2}100%{opacity:.8}}
-.main-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(7,11,26,.97);border-bottom:2px solid rgba(8,217,214,.2);z-index:20;flex-shrink:0;box-shadow:0 2px 20px rgba(0,0,0,.5);}
-.player-badge{display:flex;align-items:center;gap:.7rem;}
-.player-avatar{font-size:2rem;}
-.player-info{display:flex;flex-direction:column;gap:.1rem;}
-.player-name{font-size:1rem;font-weight:900;color:var(--accent);}
-.player-coins{font-size:.85rem;color:var(--secondary);font-weight:700;}
-.main-game-title{font-size:1.6rem;font-weight:900;font-family:'Amiri',serif;background:linear-gradient(135deg,var(--secondary),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-align:center;}
-.logout-header-btn{padding:.6rem 1.2rem;background:rgba(255,46,99,.15);border:2px solid rgba(255,46,99,.4);color:#fff;border-radius:10px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:700;font-size:.85rem;transition:all .3s;}
-.logout-header-btn:hover{background:rgba(255,46,99,.5);box-shadow:var(--fire);}
-.bottom-nav{display:flex;background:rgba(7,11,26,.97);border-top:2px solid rgba(8,217,214,.2);flex-shrink:0;z-index:20;order:3;}
-.nav-btn{flex:1;padding:.8rem;border:none;background:transparent;color:rgba(255,255,255,.5);font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .3s;border-top:3px solid transparent;}
-.nav-btn.active{color:var(--secondary);border-top-color:var(--secondary);background:rgba(8,217,214,.08);}
-.nav-btn:hover{color:#fff;}
-.main-content{flex:1;overflow-y:auto;padding:1.2rem;z-index:1;position:relative;}
-.main-content::-webkit-scrollbar{width:4px;}
-.main-content::-webkit-scrollbar-thumb{background:var(--secondary);border-radius:2px;}
-.tab-pane{display:none;}
-.tab-pane.active{display:block;}
-.section-title{font-size:1.3rem;font-weight:900;color:var(--accent);margin-bottom:1rem;text-align:center;text-shadow:var(--gold);}
-.levels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem;}
-.level-card{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:16px;padding:1rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
-.level-card:hover:not(.locked){transform:translateY(-4px);box-shadow:var(--neon);}
-.level-card.locked{opacity:.5;cursor:not-allowed;}
-.level-card.completed{border-color:rgba(255,187,0,.5);background:rgba(255,187,0,.06);}
-.level-card.secret{border-color:rgba(255,46,99,.5);background:rgba(255,46,99,.06);animation:secretPulse 2s infinite;}
-.level-card.boss{border-color:rgba(180,0,255,.5);background:rgba(180,0,255,.06);}
-@keyframes secretPulse{0%,100%{box-shadow:0 0 8px rgba(255,46,99,.3)}50%{box-shadow:0 0 22px rgba(255,46,99,.7)}}
-.level-icon{font-size:2rem;margin-bottom:.4rem;display:block;}
-.level-num{font-size:1rem;font-weight:900;color:#fff;margin-bottom:.2rem;}
-.level-name{font-size:.7rem;color:rgba(255,255,255,.6);margin-bottom:.4rem;}
-.level-stars{font-size:.85rem;margin-top:.3rem;}
-.level-lock{font-size:1.5rem;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);border-radius:14px;}
-.level-difficulty{font-size:.65rem;padding:.15rem .5rem;border-radius:6px;font-weight:700;display:inline-block;}
-.diff-easy{background:rgba(0,255,136,.15);color:#00ff88;}
-.diff-med{background:rgba(255,187,0,.15);color:var(--accent);}
-.diff-hard{background:rgba(255,46,99,.15);color:var(--primary);}
-.diff-boss{background:rgba(180,0,255,.15);color:#cc44ff;}
-.diff-secret{background:rgba(255,105,180,.15);color:#ff69b4;}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem;}
-.shop-item{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:16px;padding:1.2rem;text-align:center;transition:all .3s;}
-.shop-item:hover:not(.owned){transform:translateY(-3px);box-shadow:var(--neon);}
-.shop-item.owned{border-color:rgba(255,187,0,.4);}
-.shop-icon{font-size:2.5rem;margin-bottom:.5rem;display:block;}
-.shop-name{font-size:.95rem;font-weight:900;color:#fff;margin-bottom:.3rem;}
-.shop-desc{font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:.7rem;line-height:1.4;}
-.shop-price{font-size:.9rem;font-weight:900;color:var(--accent);margin-bottom:.6rem;}
-.shop-buy-btn{width:100%;padding:.6rem;border:none;border-radius:10px;background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-family:'Cairo',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .3s;}
-.shop-buy-btn:hover:not(:disabled){transform:scale(1.05);box-shadow:var(--fire);}
-.shop-buy-btn.owned-btn{background:linear-gradient(135deg,#ffbb00,#ff8c00);}
-.shop-buy-btn:disabled{background:rgba(255,255,255,.1);color:rgba(255,255,255,.3);cursor:not-allowed;}
-.profile-card{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:20px;padding:2rem;text-align:center;max-width:500px;margin:0 auto;}
-.profile-avatar-big{font-size:5rem;margin-bottom:.5rem;}
-.profile-card h2{font-size:1.4rem;font-weight:900;color:var(--accent);margin-bottom:1.5rem;}
-.profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem;}
-.pstat{background:rgba(8,217,214,.08);border:1px solid rgba(8,217,214,.2);border-radius:12px;padding:.8rem;}
-.pv{display:block;font-size:1.5rem;font-weight:900;color:var(--secondary);}
-.pl{font-size:.75rem;color:rgba(255,255,255,.6);}
-.owned-list{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:.8rem;min-height:2rem;}
-.owned-tag{background:rgba(255,187,0,.12);border:1px solid rgba(255,187,0,.3);border-radius:8px;padding:.3rem .7rem;font-size:.8rem;color:var(--accent);}
-#gameScreen{flex-direction:column;background:#070b1a;}
-.game-hud{display:flex;gap:.8rem;align-items:center;justify-content:center;padding:.5rem 1rem;background:rgba(5,8,20,.97);border-bottom:2px solid rgba(8,217,214,.2);flex-shrink:0;flex-wrap:wrap;}
-.hud-item{font-size:.95rem;font-weight:900;color:var(--accent);background:rgba(8,217,214,.08);padding:.3rem .8rem;border-radius:8px;border:1px solid rgba(8,217,214,.2);}
-.ingame-user{position:fixed;top:56px;right:15px;font-size:.8rem;font-weight:700;color:var(--secondary);z-index:50;background:rgba(5,8,20,.85);padding:.3rem .7rem;border-radius:8px;border:1px solid rgba(8,217,214,.2);}
-.admin-badge{background:linear-gradient(135deg,#ff2e63,#ff6b35);padding:.1rem .4rem;border-radius:5px;font-size:.65rem;font-weight:900;margin-left:.3rem;}
-#gameCanvas{display:block;margin:0 auto;}
-.pause-btn{position:fixed;top:56px;left:15px;background:rgba(5,8,20,.9);border:2px solid rgba(8,217,214,.3);color:#fff;font-size:1.2rem;width:42px;height:42px;border-radius:50%;cursor:pointer;transition:all .3s;z-index:50;}
+
+.main-hdr{display:flex;align-items:center;justify-content:space-between;padding:.65rem clamp(.8rem,3vw,1.5rem);background:rgba(7,11,26,.97);border-bottom:2px solid rgba(8,217,214,.2);flex-shrink:0;gap:.5rem;min-height:54px;}
+.plr-badge{display:flex;align-items:center;gap:.55rem;flex-shrink:0;min-width:0;}
+.plr-av{font-size:clamp(1.4rem,4vw,1.9rem);}
+.plr-info{display:flex;flex-direction:column;min-width:0;}
+.plr-name{font-size:clamp(.78rem,2.5vw,.95rem);font-weight:900;color:var(--a);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
+.plr-coins{font-size:clamp(.7rem,2vw,.82rem);color:var(--s);font-weight:700;}
+.main-title{font-size:clamp(.9rem,2.8vw,1.55rem);font-weight:900;font-family:'Amiri',serif;background:linear-gradient(135deg,var(--s),var(--p));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;text-align:center;flex:1;}
+.out-btn{padding:.5rem clamp(.6rem,2vw,1rem);background:rgba(255,46,99,.15);border:2px solid rgba(255,46,99,.4);color:#fff;border-radius:9px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(.7rem,2vw,.82rem);transition:all .3s;flex-shrink:0;white-space:nowrap;}
+.out-btn:hover{background:rgba(255,46,99,.5);}
+
+.main-body{flex:1;overflow-y:auto;padding:clamp(.7rem,2vw,1.2rem);position:relative;z-index:1;-webkit-overflow-scrolling:touch;}
+.main-body::-webkit-scrollbar{width:3px;}
+.main-body::-webkit-scrollbar-thumb{background:var(--s);border-radius:2px;}
+.tab-p{display:none;animation:fadeUp .3s ease;}
+.tab-p.active{display:block;}
+.sec-title{font-size:clamp(1rem,3vw,1.2rem);font-weight:900;color:var(--a);margin-bottom:.8rem;text-align:center;}
+
+.bottom-nav{display:flex;background:rgba(7,11,26,.97);border-top:2px solid rgba(8,217,214,.2);flex-shrink:0;}
+.nav-b{flex:1;padding:clamp(.55rem,.8rem,.8rem) .4rem;border:none;background:transparent;color:rgba(255,255,255,.45);font-family:'Cairo',sans-serif;font-size:clamp(.72rem,2vw,.84rem);font-weight:700;cursor:pointer;transition:all .3s;border-top:3px solid transparent;}
+.nav-b.active{color:var(--s);border-top-color:var(--s);background:rgba(8,217,214,.07);}
+
+/* LEVELS */
+.lvl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(120px,18vw,155px),1fr));gap:.65rem;}
+.lvl-card{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:13px;padding:.8rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
+.lvl-card:hover:not(.locked){transform:translateY(-3px);box-shadow:var(--neon);}
+.lvl-card.locked{opacity:.45;cursor:not-allowed;}
+.lvl-card.done{border-color:rgba(255,187,0,.45);}
+.lvl-card.secret{border-color:rgba(255,46,99,.5);animation:secPulse 2s infinite;}
+.lvl-card.boss{border-color:rgba(180,0,255,.5);}
+@keyframes secPulse{0%,100%{box-shadow:0 0 6px rgba(255,46,99,.3)}50%{box-shadow:0 0 20px rgba(255,46,99,.7)}}
+.lvl-icon{font-size:clamp(1.5rem,4vw,1.9rem);margin-bottom:.28rem;display:block;}
+.lvl-n{font-size:clamp(.82rem,2.5vw,.95rem);font-weight:900;color:#fff;margin-bottom:.12rem;}
+.lvl-name{font-size:clamp(.58rem,1.8vw,.66rem);color:rgba(255,255,255,.55);margin-bottom:.3rem;}
+.lvl-stars{font-size:.78rem;}
+.lvl-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);border-radius:11px;font-size:1.3rem;}
+.diff-tag{font-size:clamp(.55rem,1.5vw,.62rem);padding:.1rem .42rem;border-radius:5px;font-weight:700;display:inline-block;}
+.d-easy{background:rgba(0,255,136,.13);color:#00ff88;}
+.d-med{background:rgba(255,187,0,.13);color:var(--a);}
+.d-hard{background:rgba(255,46,99,.13);color:var(--p);}
+.d-boss{background:rgba(180,0,255,.13);color:#cc44ff;}
+.d-secret{background:rgba(255,105,180,.13);color:#ff69b4;}
+
+/* SHOP */
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(140px,20vw,165px),1fr));gap:.65rem;}
+.sh-item{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:13px;padding:.9rem;text-align:center;transition:all .3s;}
+.sh-item:hover:not(.owned){transform:translateY(-2px);box-shadow:var(--neon);}
+.sh-item.owned{border-color:rgba(255,187,0,.4);}
+.sh-icon{font-size:2.1rem;margin-bottom:.38rem;display:block;}
+.sh-name{font-size:clamp(.82rem,2.5vw,.9rem);font-weight:900;color:#fff;margin-bottom:.22rem;}
+.sh-desc{font-size:clamp(.62rem,1.8vw,.7rem);color:rgba(255,255,255,.5);margin-bottom:.55rem;line-height:1.4;}
+.sh-price{font-size:clamp(.82rem,2.5vw,.88rem);font-weight:900;color:var(--a);margin-bottom:.5rem;}
+.sh-btn{width:100%;padding:.52rem;border:none;border-radius:9px;background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(.75rem,2vw,.82rem);cursor:pointer;transition:all .3s;}
+.sh-btn:hover:not(:disabled){transform:scale(1.04);}
+.sh-btn.owned-b{background:linear-gradient(135deg,#ffbb00,#ff8c00);}
+.sh-btn:disabled{background:rgba(255,255,255,.08);color:rgba(255,255,255,.25);cursor:not-allowed;}
+
+/* PROFILE */
+.prof-card{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:18px;padding:clamp(1.2rem,4vw,1.8rem);text-align:center;max-width:480px;margin:0 auto;}
+.prof-av{font-size:clamp(3rem,8vw,4rem);margin-bottom:.4rem;}
+.prof-card h2{font-size:clamp(1.1rem,3.5vw,1.3rem);font-weight:900;color:var(--a);margin-bottom:1.1rem;}
+.prof-stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.9rem;}
+.ps{background:rgba(8,217,214,.07);border:1px solid rgba(8,217,214,.2);border-radius:10px;padding:.65rem;}
+.pv{display:block;font-size:clamp(1.1rem,3.5vw,1.4rem);font-weight:900;color:var(--s);}
+.pl{font-size:clamp(.65rem,2vw,.7rem);color:rgba(255,255,255,.55);}
+.owned-list{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:.65rem;}
+.own-tag{background:rgba(255,187,0,.1);border:1px solid rgba(255,187,0,.3);border-radius:7px;padding:.22rem .58rem;font-size:clamp(.7rem,2vw,.76rem);color:var(--a);}
+
+/* LEADERBOARD */
+.lb-wrap{max-width:500px;margin:0 auto;}
+.lb-card{background:var(--card);border:2px solid rgba(8,217,214,.2);border-radius:13px;overflow:hidden;margin-bottom:.55rem;}
+.lb-hdr{display:flex;align-items:center;gap:.55rem;padding:.65rem .9rem;background:rgba(8,217,214,.08);border-bottom:1px solid rgba(8,217,214,.2);font-weight:900;font-size:clamp(.78rem,2.5vw,.85rem);color:var(--s);}
+.lb-row{display:flex;align-items:center;gap:.55rem;padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.05);transition:background .2s;}
+.lb-row:last-child{border-bottom:none;}
+.lb-row:hover{background:rgba(8,217,214,.05);}
+.lb-rank{font-size:1.1rem;min-width:1.8rem;text-align:center;}
+.lb-name{flex:1;font-weight:700;font-size:clamp(.8rem,2.5vw,.9rem);}
+.lb-time{font-size:clamp(.78rem,2.5vw,.85rem);color:var(--a);font-weight:700;}
+.lb-empty{text-align:center;padding:1.8rem;color:rgba(255,255,255,.3);font-size:.88rem;}
+.my-row{background:rgba(255,187,0,.07)!important;border-right:3px solid var(--a);}
+
+/* GAME */
+#gameScreen{display:none;flex-direction:column;background:var(--bg);width:100%;height:100%;}
+.game-hud{display:flex;gap:.5rem;align-items:center;justify-content:center;padding:.4rem .7rem;background:rgba(5,8,20,.97);border-bottom:2px solid rgba(8,217,214,.2);flex-shrink:0;flex-wrap:wrap;min-height:42px;}
+.hi{font-size:clamp(.78rem,2.5vw,.9rem);font-weight:900;color:var(--a);background:rgba(8,217,214,.07);padding:.22rem .65rem;border-radius:7px;border:1px solid rgba(8,217,214,.18);}
+/* Canvas wrapper يملأ المساحة المتبقية ويحافظ على نسبة 1000:520 */
+.game-canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;background:#070b1a;}
+#gameCanvas{display:block;/* الحجم يُضبط بـ JS */}
+.ingame-usr{position:absolute;top:8px;right:10px;font-size:clamp(.7rem,2vw,.8rem);font-weight:700;color:var(--s);background:rgba(5,8,20,.85);padding:.22rem .58rem;border-radius:7px;border:1px solid rgba(8,217,214,.18);pointer-events:none;}
+.adm-badge{background:linear-gradient(135deg,#ff2e63,#ff6b35);padding:.08rem .35rem;border-radius:4px;font-size:.6rem;font-weight:900;margin-left:.28rem;}
+.pause-btn{position:absolute;top:8px;left:10px;background:rgba(5,8,20,.9);border:2px solid rgba(8,217,214,.3);color:#fff;font-size:1.1rem;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:all .3s;z-index:20;}
 .pause-btn:hover{box-shadow:var(--neon);}
-.admin-panel{position:fixed;bottom:20px;right:15px;background:rgba(5,5,20,.97);border:2px solid rgba(255,187,0,.5);border-radius:14px;padding:.8rem;z-index:200;min-width:215px;box-shadow:0 0 20px rgba(255,187,0,.3);}
-.ap-title{color:var(--accent);font-weight:900;font-size:.9rem;text-align:center;margin-bottom:.6rem;border-bottom:1px solid rgba(255,187,0,.3);padding-bottom:.4rem;}
-.ap-lvl-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.3rem;margin-bottom:.6rem;}
-.ap-lvl-btn{padding:.3rem;background:rgba(8,217,214,.1);border:1px solid rgba(8,217,214,.3);color:var(--secondary);border-radius:6px;cursor:pointer;font-size:.8rem;font-weight:900;font-family:'Cairo',sans-serif;transition:all .2s;}
-.ap-lvl-btn:hover{background:rgba(8,217,214,.35);transform:scale(1.1);}
-.ap-lvl-btn.ap-active{background:var(--secondary);color:#000;}
-.ap-actions{display:flex;gap:.4rem;}
-.ap-btn{flex:1;padding:.4rem .2rem;background:rgba(255,46,99,.15);border:1px solid rgba(255,46,99,.35);color:#fff;border-radius:7px;cursor:pointer;font-size:.72rem;font-weight:700;font-family:'Cairo',sans-serif;transition:all .2s;}
-.ap-btn:hover{background:rgba(255,46,99,.4);}
-.ap-btn.ap-active{background:linear-gradient(135deg,#08d9d6,#004d4d)!important;border-color:#08d9d6!important;}
-.overlay-screen{background:rgba(0,0,0,.82);backdrop-filter:blur(8px);}
-.overlay-card{background:var(--card);border:2px solid rgba(8,217,214,.3);border-radius:24px;padding:2.5rem;text-align:center;min-width:320px;max-width:420px;box-shadow:var(--neon),0 20px 60px rgba(0,0,0,.8);display:flex;flex-direction:column;gap:1rem;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);}
-.overlay-card h2{font-size:1.8rem;font-weight:900;}
-.over-title{background:linear-gradient(135deg,#ff2e63,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.win-title{background:linear-gradient(135deg,#08d9d6,#4facfe);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.result-stats{display:flex;gap:.8rem;justify-content:center;}
-.rs{display:flex;flex-direction:column;align-items:center;background:rgba(8,217,214,.08);border:1px solid rgba(8,217,214,.2);border-radius:12px;padding:.7rem 1rem;}
-.rs span{font-size:1.4rem;font-weight:900;color:var(--accent);}
-.rs small{font-size:.75rem;color:rgba(255,255,255,.6);}
-.stars-row{font-size:2rem;letter-spacing:.3rem;}
-.btn-fire{padding:.9rem 2rem;border:none;border-radius:12px;background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s;}
-.btn-fire:hover{transform:translateY(-3px);box-shadow:var(--fire);}
-.btn-ice{padding:.9rem 2rem;border:none;border-radius:12px;background:linear-gradient(135deg,#08d9d6,#4facfe);color:#fff;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s;}
-.btn-ice:hover{transform:translateY(-3px);box-shadow:var(--neon);}
-.btn-dark{padding:.9rem 2rem;border:2px solid rgba(255,255,255,.2);border-radius:12px;background:transparent;color:rgba(255,255,255,.7);font-family:'Cairo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s;}
-.btn-dark:hover{background:rgba(255,255,255,.1);}
-.admin-owner-badge{background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-size:.65rem;padding:.15rem .5rem;border-radius:6px;font-weight:900;animation:pulse 2s infinite;}
-.game-notification{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(5,8,20,.97);border:2px solid var(--accent);border-radius:12px;padding:.7rem 1.5rem;font-weight:700;color:var(--accent);z-index:1000;font-size:.95rem;animation:notifAnim .4s ease;white-space:nowrap;pointer-events:none;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ADMIN PANEL */
+.adm-panel{position:absolute;bottom:12px;right:10px;background:rgba(5,5,20,.97);border:2px solid rgba(255,187,0,.5);border-radius:12px;padding:.65rem;z-index:50;min-width:195px;box-shadow:0 0 16px rgba(255,187,0,.3);}
+.ap-title{color:var(--a);font-weight:900;font-size:.82rem;text-align:center;margin-bottom:.45rem;border-bottom:1px solid rgba(255,187,0,.22);padding-bottom:.3rem;}
+.ap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.22rem;margin-bottom:.45rem;}
+.ap-lb{padding:.25rem;background:rgba(8,217,214,.1);border:1px solid rgba(8,217,214,.28);color:var(--s);border-radius:5px;cursor:pointer;font-size:.76rem;font-weight:900;font-family:'Cairo',sans-serif;transition:all .2s;}
+.ap-lb:hover{background:rgba(8,217,214,.3);}
+.ap-lb.on{background:var(--s);color:#000;}
+.ap-acts{display:flex;gap:.28rem;}
+.ap-ab{flex:1;padding:.32rem .12rem;background:rgba(255,46,99,.13);border:1px solid rgba(255,46,99,.28);color:#fff;border-radius:6px;cursor:pointer;font-size:.66rem;font-weight:700;font-family:'Cairo',sans-serif;transition:all .2s;}
+.ap-ab:hover{background:rgba(255,46,99,.35);}
+.ap-ab.on{background:linear-gradient(135deg,#08d9d6,#004d4d)!important;border-color:#08d9d6!important;}
+
+/* OVERLAYS */
+.ov-screen{background:rgba(0,0,0,.8);backdrop-filter:blur(8px);}
+.ov-card{background:var(--card);border:2px solid rgba(8,217,214,.3);border-radius:20px;padding:clamp(1.5rem,5vw,2.2rem);text-align:center;width:min(380px,90vw);box-shadow:var(--neon),0 20px 60px rgba(0,0,0,.8);display:flex;flex-direction:column;gap:.85rem;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);}
+.ov-card h2{font-size:clamp(1.4rem,5vw,1.7rem);font-weight:900;}
+.t-red{background:linear-gradient(135deg,#ff2e63,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.t-blue{background:linear-gradient(135deg,#08d9d6,#4facfe);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.res-row{display:flex;gap:.65rem;justify-content:center;}
+.rs{display:flex;flex-direction:column;align-items:center;background:rgba(8,217,214,.07);border:1px solid rgba(8,217,214,.18);border-radius:10px;padding:.6rem .85rem;}
+.rs span{font-size:clamp(1.1rem,4vw,1.35rem);font-weight:900;color:var(--a);}
+.rs small{font-size:clamp(.65rem,2vw,.72rem);color:rgba(255,255,255,.55);}
+.stars{font-size:clamp(1.5rem,5vw,1.9rem);letter-spacing:.22rem;}
+.btn-r{padding:.8rem 1.6rem;border:none;border-radius:11px;background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-family:'Cairo',sans-serif;font-size:clamp(.88rem,2.8vw,.95rem);font-weight:700;cursor:pointer;transition:all .3s;}
+.btn-r:hover{transform:translateY(-2px);box-shadow:var(--fire);}
+.btn-b{padding:.8rem 1.6rem;border:none;border-radius:11px;background:linear-gradient(135deg,#08d9d6,#4facfe);color:#fff;font-family:'Cairo',sans-serif;font-size:clamp(.88rem,2.8vw,.95rem);font-weight:700;cursor:pointer;transition:all .3s;}
+.btn-b:hover{transform:translateY(-2px);box-shadow:var(--neon);}
+.btn-d{padding:.8rem 1.6rem;border:2px solid rgba(255,255,255,.18);border-radius:11px;background:transparent;color:rgba(255,255,255,.65);font-family:'Cairo',sans-serif;font-size:clamp(.88rem,2.8vw,.95rem);font-weight:700;cursor:pointer;transition:all .3s;}
+.btn-d:hover{background:rgba(255,255,255,.08);}
+.adm-own{background:linear-gradient(135deg,#ff2e63,#ff6b35);color:#fff;font-size:.6rem;padding:.1rem .42rem;border-radius:5px;font-weight:900;}
+.notif{position:fixed;top:65px;left:50%;transform:translateX(-50%);background:rgba(5,8,20,.97);border:2px solid var(--a);border-radius:11px;padding:.55rem 1.2rem;font-weight:700;color:var(--a);z-index:999;font-size:clamp(.8rem,2.5vw,.9rem);animation:notifIn .35s ease;white-space:nowrap;pointer-events:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
-@keyframes notifAnim{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-thumb{background:var(--secondary);border-radius:2px;}
+@keyframes notifIn{from{opacity:0;transform:translateX(-50%) translateY(-14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--s);border-radius:2px;}
 </style>
 </head>
 <body>
 
 <!-- تسجيل -->
-<div id="registerScreen" class="screen">
-  <div class="auth-bg-effects"></div>
-  <div class="auth-wrapper">
-    <div class="auth-logo"><span class="logo-top">مغامرات</span><span class="logo-bottom">النينجا ⚔️</span></div>
+<div id="regScreen" class="screen">
+  <div class="auth-bg"></div>
+  <div class="auth-wrap">
+    <div class="auth-logo"><span class="logo-a">مغامرات</span><span class="logo-b">النينجا ⚔️</span></div>
     <div class="auth-card">
-      <h2 class="auth-card-title">إنشاء حساب جديد</h2>
-      <form id="registerForm">
-        <div class="field"><label>اسم المستخدم</label><input type="text" id="reg_user" placeholder="مثال: ninja2024" required></div>
-        <div class="field"><label>كلمة المرور</label><input type="password" id="reg_pass" placeholder="4 أحرف على الأقل" required></div>
-        <div class="field"><label>تأكيد كلمة المرور</label><input type="password" id="reg_confirm" placeholder="أعد كتابة كلمة المرور" required></div>
-        <div class="auth-error" id="reg_error"></div>
-        <button type="submit" class="auth-submit-btn">إنشاء الحساب ✨</button>
+      <h2>إنشاء حساب جديد</h2>
+      <form id="regForm">
+        <div class="field"><label>اسم المستخدم</label><input id="rU" placeholder="مثال: ninja2024" required></div>
+        <div class="field"><label>كلمة المرور</label><input id="rP" type="password" placeholder="4 أحرف على الأقل" required></div>
+        <div class="field"><label>تأكيد كلمة المرور</label><input id="rC" type="password" placeholder="أعد كتابة كلمة المرور" required></div>
+        <div class="auth-err" id="rErr"></div>
+        <button type="submit" class="auth-btn">إنشاء الحساب ✨</button>
       </form>
-      <p class="auth-switch">لديك حساب؟ <a href="#" id="toLogin">تسجيل الدخول</a></p>
+      <p class="auth-sw">لديك حساب؟ <a href="#" id="toLog">تسجيل الدخول</a></p>
     </div>
   </div>
 </div>
 
 <!-- دخول -->
-<div id="loginScreen" class="screen">
-  <div class="auth-bg-effects"></div>
-  <div class="auth-wrapper">
-    <div class="auth-logo"><span class="logo-top">مغامرات</span><span class="logo-bottom">النينجا ⚔️</span></div>
+<div id="logScreen" class="screen">
+  <div class="auth-bg"></div>
+  <div class="auth-wrap">
+    <div class="auth-logo"><span class="logo-a">مغامرات</span><span class="logo-b">النينجا ⚔️</span></div>
     <div class="auth-card">
-      <h2 class="auth-card-title">تسجيل الدخول</h2>
-      <form id="loginForm">
-        <div class="field"><label>اسم المستخدم</label><input type="text" id="log_user" placeholder="أدخل اسمك" required></div>
-        <div class="field"><label>كلمة المرور</label><input type="password" id="log_pass" placeholder="أدخل كلمة المرور" required></div>
-        <div class="auth-error" id="log_error"></div>
-        <button type="submit" class="auth-submit-btn">دخول 🎮</button>
+      <h2>تسجيل الدخول</h2>
+      <form id="logForm">
+        <div class="field"><label>اسم المستخدم</label><input id="lU" placeholder="أدخل اسمك" required></div>
+        <div class="field"><label>كلمة المرور</label><input id="lP" type="password" placeholder="أدخل كلمة المرور" required></div>
+        <div class="auth-err" id="lErr"></div>
+        <button type="submit" class="auth-btn">دخول 🎮</button>
       </form>
-      <p class="auth-switch">ليس لديك حساب؟ <a href="#" id="toRegister">إنشاء حساب</a></p>
+      <p class="auth-sw">ليس لديك حساب؟ <a href="#" id="toReg">إنشاء حساب</a></p>
     </div>
   </div>
 </div>
 
 <!-- الرئيسية -->
 <div id="mainScreen" class="screen">
-  <div class="main-stars"></div>
-  <header class="main-header">
-    <div class="player-badge">
-      <span class="player-avatar">🥷</span>
-      <div class="player-info">
-        <span class="player-name" id="mainUsername"></span>
-        <span class="player-coins">💎 <span id="mainCoins">0</span></span>
+  <div class="stars-bg"></div>
+  <header class="main-hdr">
+    <div class="plr-badge">
+      <span class="plr-av">🥷</span>
+      <div class="plr-info">
+        <span class="plr-name" id="mUser"></span>
+        <span class="plr-coins">💎 <span id="mCoins">0</span></span>
       </div>
     </div>
-    <h1 class="main-game-title">مغامرات النينجا</h1>
-    <button class="logout-header-btn" id="logoutBtn">خروج 🚪</button>
+    <h1 class="main-title">مغامرات النينجا</h1>
+    <button class="out-btn" id="logoutBtn">خروج 🚪</button>
   </header>
-  <div class="main-content" id="mainContent">
-    <div class="tab-pane active" id="levelsTab">
-      <h2 class="section-title">🗺️ اختر مرحلتك</h2>
-      <div class="levels-grid" id="levelsGrid"></div>
+  <div class="main-body" id="mainBody">
+    <div class="tab-p active" id="lvlTab">
+      <div class="sec-title">🗺️ اختر مرحلتك</div>
+      <div class="lvl-grid" id="lvlGrid"></div>
     </div>
-    <div class="tab-pane" id="shopTab">
-      <h2 class="section-title">🏪 متجر المهارات</h2>
+    <div class="tab-p" id="shopTab">
+      <div class="sec-title">🏪 متجر المهارات</div>
       <div class="shop-grid" id="shopGrid"></div>
     </div>
-    <div class="tab-pane" id="profileTab">
-      <div class="profile-card">
-        <div class="profile-avatar-big">🥷</div>
-        <h2 id="profileName"></h2>
-        <div class="profile-stats">
-          <div class="pstat"><span class="pv" id="pTotalCoins">0</span><span class="pl">💎 مجموع الكوين</span></div>
-          <div class="pstat"><span class="pv" id="pLevelsUnlocked">1</span><span class="pl">🔓 مراحل مفتوحة</span></div>
-          <div class="pstat"><span class="pv" id="pBestLevel">1</span><span class="pl">🏆 أعلى مرحلة</span></div>
-          <div class="pstat"><span class="pv" id="pItems">0</span><span class="pl">🎒 مقتنيات</span></div>
+    <div class="tab-p" id="lbTab">
+      <div class="sec-title">🏆 لوحة المتصدرين</div>
+      <div class="lb-wrap" id="lbWrap"></div>
+    </div>
+    <div class="tab-p" id="profTab">
+      <div class="prof-card">
+        <div class="prof-av">🥷</div>
+        <h2 id="profName"></h2>
+        <div class="prof-stats">
+          <div class="ps"><span class="pv" id="pCoins">0</span><span class="pl">💎 مجموع الكوين</span></div>
+          <div class="ps"><span class="pv" id="pUnlocked">1</span><span class="pl">🔓 مراحل مفتوحة</span></div>
+          <div class="ps"><span class="pv" id="pBest">1</span><span class="pl">🏆 أعلى مرحلة</span></div>
+          <div class="ps"><span class="pv" id="pItems">0</span><span class="pl">🎒 مقتنيات</span></div>
         </div>
-        <h3 style="color:#08d9d6;margin-top:1.2rem;font-size:1rem;">🎒 مقتنياتي</h3>
+        <div class="sec-title" style="font-size:.95rem;margin-top:1rem;">🎒 مقتنياتي</div>
         <div class="owned-list" id="ownedList"></div>
       </div>
     </div>
   </div>
   <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="switchTab('levels')">🗺️ المراحل</button>
-    <button class="nav-btn" onclick="switchTab('shop')">🏪 المتجر</button>
-    <button class="nav-btn" onclick="switchTab('profile')">👤 ملفي</button>
+    <button class="nav-b active" onclick="switchTab('lvl')">🗺️ المراحل</button>
+    <button class="nav-b" onclick="switchTab('shop')">🏪 المتجر</button>
+    <button class="nav-b" onclick="switchTab('lb')">🏆 المتصدرون</button>
+    <button class="nav-b" onclick="switchTab('prof')">👤 ملفي</button>
   </nav>
 </div>
 
 <!-- اللعبة -->
 <div id="gameScreen" class="screen">
   <div class="game-hud">
-    <div class="hud-item">💎 <span id="scoreDisplay">0</span></div>
-    <div class="hud-item">م <span id="levelDisplay">1</span></div>
-    <div class="hud-item">⏱ <span id="timeDisplay">0:00</span></div>
-    <div class="hud-item">❤️ <span id="livesDisplay">3</span></div>
-    <div class="hud-item" id="shieldHud" style="display:none">🛡️ درع</div>
-    <div class="hud-item" id="speedHud" style="display:none">⚡ سريع</div>
+    <div class="hi">💎 <span id="scorD">0</span></div>
+    <div class="hi">م<span id="lvlD">1</span></div>
+    <div class="hi">⏱<span id="timeD">0:00</span></div>
+    <div class="hi">❤️<span id="livD">3</span></div>
+    <div class="hi" id="shdH" style="display:none">🛡️</div>
+    <div class="hi" id="spdH" style="display:none">⚡</div>
   </div>
-  <div class="ingame-user" id="ingameUser"></div>
-  <canvas id="gameCanvas"></canvas>
-  <button class="pause-btn" id="pauseBtn">⏸</button>
-  <div class="admin-panel" id="adminPanel" style="display:none">
-    <div class="ap-title">👑 لوحة التحكم</div>
-    <div id="apLevelGrid" class="ap-lvl-grid"></div>
-    <div class="ap-actions">
-      <button class="ap-btn" id="btnInvincible" onclick="adminToggleInvincible()">🛡️ مناعة</button>
-      <button class="ap-btn" onclick="adminSkipLevel()">⏭️ تخطي</button>
-      <button class="ap-btn" onclick="adminAddLives()">💖 ∞</button>
+  <div class="game-canvas-wrap" id="canvasWrap">
+    <div class="ingame-usr" id="ingUser"></div>
+    <canvas id="gameCanvas"></canvas>
+    <button class="pause-btn" id="pauseBtn">⏸</button>
+    <div class="adm-panel" id="admPanel" style="display:none">
+      <div class="ap-title">👑 لوحة التحكم</div>
+      <div class="ap-grid" id="apGrid"></div>
+      <div class="ap-acts">
+        <button class="ap-ab" id="invBtn" onclick="aInv()">🛡️</button>
+        <button class="ap-ab" onclick="aSkip()">⏭️</button>
+        <button class="ap-ab" onclick="aLives()">💖∞</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- إيقاف -->
-<div id="pauseScreen" class="screen overlay-screen">
-  <div class="overlay-card">
+<div id="pauseScreen" class="screen ov-screen">
+  <div class="ov-card">
     <h2>⏸️ توقف</h2>
-    <button class="btn-fire" id="resumeBtn">▶️ متابعة</button>
-    <button class="btn-ice" id="restartBtn">🔄 إعادة المرحلة</button>
-    <button class="btn-dark" id="quitBtn">🏠 القائمة</button>
+    <button class="btn-r" id="resumeBtn">▶️ متابعة</button>
+    <button class="btn-b" id="restartBtn">🔄 إعادة</button>
+    <button class="btn-d" id="quitBtn">🏠 القائمة</button>
   </div>
 </div>
 
 <!-- خسارة -->
-<div id="gameOverScreen" class="screen overlay-screen">
-  <div class="overlay-card">
-    <h2 class="over-title">💀 انتهت اللعبة</h2>
-    <div class="result-stats">
-      <div class="rs"><span id="go_score">0</span><small>نقاط</small></div>
-      <div class="rs"><span id="go_level">1</span><small>مرحلة</small></div>
-      <div class="rs"><span id="go_time">0:00</span><small>وقت</small></div>
+<div id="overScreen" class="screen ov-screen">
+  <div class="ov-card">
+    <h2 class="t-red">💀 انتهت اللعبة</h2>
+    <div class="res-row">
+      <div class="rs"><span id="goSc">0</span><small>نقاط</small></div>
+      <div class="rs"><span id="goLv">1</span><small>مرحلة</small></div>
+      <div class="rs"><span id="goTm">0:00</span><small>وقت</small></div>
     </div>
-    <div class="stars-row" id="go_stars"></div>
-    <button class="btn-fire" id="playAgainBtn">🔄 مجدداً</button>
-    <button class="btn-dark" id="goToMenuBtn">🏠 القائمة</button>
+    <div class="stars" id="goSt"></div>
+    <button class="btn-r" id="againBtn">🔄 مجدداً</button>
+    <button class="btn-d" id="goMenuBtn">🏠 القائمة</button>
   </div>
 </div>
 
 <!-- فوز -->
-<div id="levelCompleteScreen" class="screen overlay-screen">
-  <div class="overlay-card">
-    <h2 class="win-title">🎉 أحسنت!</h2>
-    <div class="result-stats">
-      <div class="rs"><span id="lc_score">0</span><small>نقاط</small></div>
-      <div class="rs"><span id="lc_coins">0</span><small>💎 كوين</small></div>
-      <div class="rs"><span id="lc_time">0:00</span><small>وقت</small></div>
+<div id="winScreen" class="screen ov-screen">
+  <div class="ov-card">
+    <h2 class="t-blue">🎉 أحسنت!</h2>
+    <div class="res-row">
+      <div class="rs"><span id="lcSc">0</span><small>نقاط</small></div>
+      <div class="rs"><span id="lcCo">0</span><small>💎 كوين</small></div>
+      <div class="rs"><span id="lcTm">0:00</span><small>وقت</small></div>
     </div>
-    <div class="stars-row" id="lc_stars"></div>
-    <button class="btn-ice" id="nextLevelBtn">➡️ المرحلة التالية</button>
-    <button class="btn-dark" id="lc_menuBtn">🏠 القائمة</button>
+    <div class="stars" id="lcSt"></div>
+    <button class="btn-b" id="nextBtn">➡️ التالي</button>
+    <button class="btn-d" id="lcMenuBtn">🏠 القائمة</button>
   </div>
 </div>
 
 <script>
-const CONFIG={canvas:{width:1000,height:500},player:{width:38,height:48,speed:5,jumpPower:14,gravity:0.55,maxFall:14},enemy:{width:38,height:38,speed:1.8}};
-const OWNER={username:'owner',password:'owner123'};
-const SHOP_ITEMS=[
-  {id:'shield',    name:'🛡️ درع الحماية',  desc:'مناعة مؤقتة 10 ثوانٍ في بداية كل مرحلة', price:50,  icon:'🛡️'},
-  {id:'speed',     name:'⚡ بوت السرعة',    desc:'زيادة سرعة الحركة 40%',                    price:80,  icon:'⚡'},
-  {id:'doublejump',name:'🦅 قفزة مزدوجة',  desc:'اقفز مرتين في الهواء',                     price:120, icon:'🦅'},
-  {id:'magnet',    name:'🧲 مغناطيس',       desc:'سحب الكوين القريبة تلقائياً',              price:100, icon:'🧲'},
-  {id:'extralives',name:'💖 حياة إضافية',  desc:'ابدأ كل مرحلة بـ 5 حيوات',                price:150, icon:'💖'},
-  {id:'coinboost', name:'💰 مضاعف الكوين', desc:'كل كوين تجمعها تساوي ضعفين',              price:200, icon:'💰'},
+// ===================== CONFIG =====================
+const CFG={W:1000,H:520,pW:38,pH:48,pSpd:5,pJmp:14,grav:0.55,maxFall:14,eW:38,eH:38,eSpd:1.8};
+const OWNER={u:'owner',p:'owner123'};
+const ITEMS=[
+  {id:'shield',    n:'🛡️ درع الحماية', d:'مناعة 10 ثوانٍ عند بدء كل مرحلة', price:50},
+  {id:'speed',     n:'⚡ بوت السرعة',   d:'سرعة حركة +40%',                   price:80},
+  {id:'doublejump',n:'🦅 قفزة مزدوجة', d:'اقفز مرتين في الهواء',              price:120},
+  {id:'magnet',    n:'🧲 مغناطيس',      d:'سحب الكوين القريبة تلقائياً',      price:100},
+  {id:'extralives',n:'💖 حياة إضافية', d:'ابدأ بـ 5 حيوات بدل 3',            price:150},
+  {id:'coinboost', n:'💰 مضاعف الكوين',d:'كل كوين = ضعفين',                  price:200},
 ];
-const LVL=[
-  {id:1,name:'البداية',    icon:'🌱',diff:'easy',  secret:false,boss:false},
-  {id:2,name:'السهل',      icon:'🌿',diff:'easy',  secret:false,boss:false},
-  {id:3,name:'التحدي',     icon:'🌊',diff:'med',   secret:false,boss:false},
-  {id:4,name:'النيران',    icon:'🔥',diff:'med',   secret:false,boss:false},
-  {id:5,name:'التوازن',    icon:'⚖️', diff:'med',   secret:false,boss:false},
-  {id:6,name:'السرعة',     icon:'⚡',diff:'hard',  secret:false,boss:false},
-  {id:7,name:'المتاهة',    icon:'🌀',diff:'hard',  secret:false,boss:false},
-  {id:8,name:'الأبراج',    icon:'🏰',diff:'hard',  secret:false,boss:false},
-  {id:9,name:'🎁 الكنز',   icon:'🎁',diff:'secret',secret:true, boss:false},
-  {id:10,name:'العاصفة',   icon:'⛈️', diff:'hard',  secret:false,boss:false},
-  {id:11,name:'الجحيم',    icon:'👹',diff:'hard',  secret:false,boss:false},
-  {id:12,name:'الفراغ',    icon:'🌌',diff:'hard',  secret:false,boss:false},
-  {id:13,name:'🎁 سرية 2', icon:'💎',diff:'secret',secret:true, boss:false},
-  {id:14,name:'الفوضى 👊', icon:'🌪️', diff:'boss',  secret:false,boss:true},
-  {id:15,name:'برج الملك 👑',icon:'👑',diff:'boss', secret:false,boss:true},
+const LVLS=[
+  {id:1, n:'البداية',      ic:'🌱',d:'easy',  sec:false,boss:false},
+  {id:2, n:'السهل',        ic:'🌿',d:'easy',  sec:false,boss:false},
+  {id:3, n:'التحدي',       ic:'🌊',d:'med',   sec:false,boss:false},
+  {id:4, n:'النيران',      ic:'🔥',d:'med',   sec:false,boss:false},
+  {id:5, n:'التوازن',      ic:'⚖️', d:'med',   sec:false,boss:false},
+  {id:6, n:'السرعة',       ic:'⚡',d:'hard',  sec:false,boss:false},
+  {id:7, n:'المتاهة',      ic:'🌀',d:'hard',  sec:false,boss:false},
+  {id:8, n:'الأبراج',      ic:'🏰',d:'hard',  sec:false,boss:false},
+  {id:9, n:'🎁 الكنز',     ic:'🎁',d:'secret',sec:true, boss:false},
+  {id:10,n:'العاصفة',      ic:'⛈️', d:'hard',  sec:false,boss:false},
+  {id:11,n:'الجحيم',       ic:'👹',d:'hard',  sec:false,boss:false},
+  {id:12,n:'الفراغ',       ic:'🌌',d:'hard',  sec:false,boss:false},
+  {id:13,n:'🎁 سرية 2',    ic:'💎',d:'secret',sec:true, boss:false},
+  {id:14,n:'الفوضى 💥',    ic:'🌪️', d:'boss',  sec:false,boss:true},
+  {id:15,n:'برج الملك 👑', ic:'👑',d:'boss',  sec:false,boss:true},
 ];
 
-let canvas,ctx,gameState='menu',currentLevel=1,score=0,lives=3,gameTime=0;
-let gameInterval,timeInterval,coinsThisLevel=0;
+// ===================== STATE =====================
+let canvas,ctx,wrap,gameState='menu',curLvl=1,score=0,lives=3,gTime=0;
+let gInt,tInt,coinsLvl=0,shieldT=0;
 let player,platforms=[],coins=[],enemies=[],fires=[],keys={};
-let currentUser=null,shieldTimer=0;
+let curUser=null;
+// إجمالي وقت كل المراحل لليدربورد
+let totalTimeAllLevels=0;
+let lvlTimes={};// وقت كل مرحلة
 
-function getSave(){try{const d=localStorage.getItem('nj2_'+currentUser?.username);return d?JSON.parse(d):{totalCoins:0,unlockedLevels:[1],completedLevels:{},ownedItems:[],levelStars:{}};}catch(e){return{totalCoins:0,unlockedLevels:[1],completedLevels:{},ownedItems:[],levelStars:{}};}}
-function setSave(d){localStorage.setItem('nj2_'+currentUser?.username,JSON.stringify(d));}
-function addCoins(n){const d=getSave();const m=d.ownedItems.includes('coinboost')?2:1;d.totalCoins+=n*m;setSave(d);return d.totalCoins;}
-function buyItem(id){const item=SHOP_ITEMS.find(i=>i.id===id);if(!item)return false;const d=getSave();if(d.ownedItems.includes(id)){showNotif('لديك هذا العنصر!');return false;}if(d.totalCoins<item.price){showNotif('💎 كوين غير كافية!');return false;}d.totalCoins-=item.price;d.ownedItems.push(id);setSave(d);showNotif('✅ تم شراء '+item.name);return true;}
-function isOwner(){return currentUser?.username===OWNER.username;}
-function checkLogin(){try{const u=localStorage.getItem('nj2_session');if(u){currentUser=JSON.parse(u);return true;}return false;}catch(e){return false;}}
-function loginUser(un,pw){
-  if(un===OWNER.username&&pw===OWNER.password){currentUser={username:OWNER.username,isAdmin:true};localStorage.setItem('nj2_session',JSON.stringify(currentUser));return{ok:true};}
-  const acc=localStorage.getItem('nj2_account');if(!acc)return{ok:false,msg:'لا يوجد حساب، أنشئ حساباً أولاً'};
-  const a=JSON.parse(acc);if(a.username!==un)return{ok:false,msg:'اسم المستخدم غير صحيح'};
-  if(a.password!==pw)return{ok:false,msg:'كلمة المرور غير صحيحة'};
-  currentUser={username:un};localStorage.setItem('nj2_session',JSON.stringify(currentUser));return{ok:true};}
-function registerUser(un,pw,cf){
-  if(localStorage.getItem('nj2_account'))return{ok:false,msg:'يوجد حساب مسجل بالفعل!'};
-  if(un.toLowerCase()==='owner')return{ok:false,msg:'⚠️ هذا الاسم محجوز'};
-  if(!un||un.length<3)return{ok:false,msg:'الاسم 3 أحرف على الأقل'};
-  if(!pw||pw.length<4)return{ok:false,msg:'كلمة المرور 4 أحرف على الأقل'};
-  if(pw!==cf)return{ok:false,msg:'كلمة المرور غير متطابقة'};
-  localStorage.setItem('nj2_account',JSON.stringify({username:un,password:pw}));
-  currentUser={username:un};localStorage.setItem('nj2_session',JSON.stringify(currentUser));return{ok:true};}
-function logoutUser(){localStorage.removeItem('nj2_session');currentUser=null;clearInterval(gameInterval);clearInterval(timeInterval);gameState='menu';showScreen('loginScreen');}
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.style.display='none');const s=document.getElementById(id);if(s)s.style.display='flex';}
-function showNotif(msg,dur=2500){document.querySelectorAll('.game-notification').forEach(n=>n.remove());const n=document.createElement('div');n.className='game-notification';n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),dur);}
+// ===================== SAVE =====================
+function getSave(){
+  try{const d=localStorage.getItem('nj3_'+curUser?.u);return d?JSON.parse(d):{totalCoins:0,unlocked:[1],completed:{},items:[],stars:{},lvlBestTimes:{},totalBestTime:null};}
+  catch(e){return{totalCoins:0,unlocked:[1],completed:{},items:[],stars:{},lvlBestTimes:{},totalBestTime:null};}
+}
+function setSave(d){localStorage.setItem('nj3_'+curUser?.u,JSON.stringify(d));}
+function addCoins(n){const d=getSave();const m=d.items.includes('coinboost')?2:1;d.totalCoins+=n*m;setSave(d);return d.totalCoins;}
+function buyItem(id){
+  const it=ITEMS.find(i=>i.id===id);if(!it)return false;
+  const d=getSave();if(d.items.includes(id)){notif('لديك هذا العنصر!');return false;}
+  if(d.totalCoins<it.price){notif('💎 كوين غير كافية!');return false;}
+  d.totalCoins-=it.price;d.items.push(id);setSave(d);notif('✅ تم شراء '+it.n);return true;
+}
 
+// ===================== LEADERBOARD =====================
+function getLB(){try{return JSON.parse(localStorage.getItem('nj3_lb')||'[]');}catch(e){return[];}}
+function saveLB(lb){localStorage.setItem('nj3_lb',JSON.stringify(lb));}
+function submitLBScore(username,totalSecs){
+  let lb=getLB();
+  const ex=lb.findIndex(r=>r.u===username);
+  if(ex>=0){
+    // فقط إذا كان الوقت الجديد أسرع
+    if(totalSecs<lb[ex].t){lb[ex].t=totalSecs;lb[ex].date=Date.now();}
+    else return;// وقت أبطأ، لا تحديث
+  }else{
+    lb.push({u:username,t:totalSecs,date:Date.now()});
+  }
+  lb.sort((a,b)=>a.t-b.t);
+  lb=lb.slice(0,10);
+  saveLB(lb);
+}
+function fmtTime(secs){const m=Math.floor(secs/60),s=secs%60;return`${m}:${String(s).padStart(2,'0')}`;}
+
+// ===================== AUTH =====================
+function isOwner(){return curUser?.u===OWNER.u;}
+function chkLogin(){try{const u=localStorage.getItem('nj3_ses');if(u){curUser=JSON.parse(u);return true;}return false;}catch(e){return false;}}
+function login(un,pw){
+  if(un===OWNER.u&&pw===OWNER.p){curUser={u:OWNER.u,admin:true};localStorage.setItem('nj3_ses',JSON.stringify(curUser));return{ok:true};}
+  const acc=localStorage.getItem('nj3_acc');if(!acc)return{ok:false,m:'لا يوجد حساب، أنشئ حساباً أولاً'};
+  const a=JSON.parse(acc);if(a.u!==un)return{ok:false,m:'اسم المستخدم غير صحيح'};
+  if(a.p!==pw)return{ok:false,m:'كلمة المرور غير صحيحة'};
+  curUser={u:un};localStorage.setItem('nj3_ses',JSON.stringify(curUser));return{ok:true};
+}
+function register(un,pw,cf){
+  if(localStorage.getItem('nj3_acc'))return{ok:false,m:'يوجد حساب مسجل!'};
+  if(un.toLowerCase()==='owner')return{ok:false,m:'⚠️ هذا الاسم محجوز'};
+  if(!un||un.length<3)return{ok:false,m:'الاسم 3 أحرف على الأقل'};
+  if(!pw||pw.length<4)return{ok:false,m:'كلمة المرور 4 أحرف على الأقل'};
+  if(pw!==cf)return{ok:false,m:'كلمة المرور غير متطابقة'};
+  localStorage.setItem('nj3_acc',JSON.stringify({u:un,p:pw}));
+  curUser={u:un};localStorage.setItem('nj3_ses',JSON.stringify(curUser));return{ok:true};
+}
+function logout(){localStorage.removeItem('nj3_ses');curUser=null;clearInterval(gInt);clearInterval(tInt);gameState='menu';showSc('logScreen');}
+
+// ===================== UI HELPERS =====================
+function showSc(id){document.querySelectorAll('.screen').forEach(s=>s.style.display='none');const s=document.getElementById(id);if(s)s.style.display='flex';}
+function notif(msg,dur=2500){document.querySelectorAll('.notif').forEach(n=>n.remove());const n=document.createElement('div');n.className='notif';n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),dur);}
+
+// ===================== MAIN SCREEN =====================
 function initMain(){
   const d=getSave();
-  document.getElementById('mainUsername').innerHTML=isOwner()?`<span class="admin-owner-badge">👑 ADMIN</span> ${currentUser.username}`:currentUser.username;
-  document.getElementById('mainCoins').textContent=d.totalCoins;
-  renderLevels();switchTab('levels');}
-
-function renderLevels(){
-  const d=getSave(),g=document.getElementById('levelsGrid');g.innerHTML='';
-  LVL.forEach(lv=>{
-    const un=isOwner()||d.unlockedLevels.includes(lv.id),cp=d.completedLevels[lv.id],st=d.levelStars[lv.id]||0;
+  document.getElementById('mUser').innerHTML=isOwner()?`<span class="adm-own">👑 ADMIN</span> ${curUser.u}`:curUser.u;
+  document.getElementById('mCoins').textContent=d.totalCoins;
+  renderLvls();switchTab('lvl');
+}
+function renderLvls(){
+  const d=getSave(),g=document.getElementById('lvlGrid');g.innerHTML='';
+  const DL={easy:'سهل',med:'متوسط',hard:'صعب',boss:'🔥 بوس',secret:'🎁 سري'};
+  LVLS.forEach(lv=>{
+    const un=isOwner()||d.unlocked.includes(lv.id),cp=d.completed[lv.id],st=d.stars[lv.id]||0;
     const card=document.createElement('div');
-    card.className='level-card'+(un?'':' locked')+(cp?' completed':'')+(lv.secret?' secret':'')+(lv.boss?' boss':'');
-    const stH=un&&cp?['⭐','⭐','⭐'].map((s,i)=>`<span style="opacity:${i<st?1:.2}">${s}</span>`).join(''):'';
-    const dl={easy:'سهل',med:'متوسط',hard:'صعب',boss:'🔥 بوس',secret:'🎁 سري'};
-    card.innerHTML=`<span class="level-icon">${lv.icon}</span><div class="level-num">مرحلة ${lv.id}</div><div class="level-name">${lv.name}</div><span class="level-difficulty diff-${lv.diff}">${dl[lv.diff]}</span>${stH?`<div class="level-stars">${stH}</div>`:''}${!un?'<div class="level-lock">🔒</div>':''}`;
+    card.className='lvl-card'+(un?'':' locked')+(cp?' done':'')+(lv.sec?' secret':'')+(lv.boss?' boss':'');
+    const stH=cp?['⭐','⭐','⭐'].map((s,i)=>`<span style="opacity:${i<st?1:.2}">${s}</span>`).join(''):'';
+    card.innerHTML=`<span class="lvl-icon">${lv.ic}</span><div class="lvl-n">م${lv.id}</div><div class="lvl-name">${lv.n}</div><span class="diff-tag d-${lv.d}">${DL[lv.d]}</span>${stH?`<div class="lvl-stars">${stH}</div>`:''}${!un?'<div class="lvl-lock">🔒</div>':''}`;
     if(un)card.onclick=()=>startGame(lv.id);
-    g.appendChild(card);});}
-
+    g.appendChild(card);
+  });
+}
 function renderShop(){
   const d=getSave(),g=document.getElementById('shopGrid');g.innerHTML='';
-  SHOP_ITEMS.forEach(item=>{
-    const own=d.ownedItems.includes(item.id),af=d.totalCoins>=item.price;
-    const el=document.createElement('div');el.className='shop-item'+(own?' owned':'');
-    el.innerHTML=`<span class="shop-icon">${item.icon}</span><div class="shop-name">${item.name}</div><div class="shop-desc">${item.desc}</div><div class="shop-price">💎 ${item.price}</div><button class="shop-buy-btn${own?' owned-btn':''}" ${own||!af?'disabled':''} onclick="handleBuy('${item.id}')">${own?'✅ ممتلك':af?'شراء':'💎 غير كافي'}</button>`;
-    g.appendChild(el);});}
-
-function handleBuy(id){if(buyItem(id)){renderShop();document.getElementById('mainCoins').textContent=getSave().totalCoins;renderProfile();}}
-
-function renderProfile(){
+  ITEMS.forEach(it=>{
+    const own=d.items.includes(it.id),af=d.totalCoins>=it.price;
+    const el=document.createElement('div');el.className='sh-item'+(own?' owned':'');
+    el.innerHTML=`<span class="sh-icon">${it.n.split(' ')[0]}</span><div class="sh-name">${it.n}</div><div class="sh-desc">${it.d}</div><div class="sh-price">💎 ${it.price}</div><button class="sh-btn${own?' owned-b':''}" ${own||!af?'disabled':''} onclick="doBuy('${it.id}')">${own?'✅ ممتلك':af?'شراء':'💎 غير كافي'}</button>`;
+    g.appendChild(el);
+  });
+}
+function doBuy(id){if(buyItem(id)){renderShop();document.getElementById('mCoins').textContent=getSave().totalCoins;renderProf();}}
+function renderLB(){
+  const lb=getLB(),w=document.getElementById('lbWrap'),me=curUser?.u;
+  if(lb.length===0){w.innerHTML='<div class="lb-empty">🏆 لا توجد سجلات بعد!<br><small>أنهِ جميع المراحل لتسجيل وقتك</small></div>';return;}
+  const medals=['🥇','🥈','🥉'];
+  const rows=lb.map((r,i)=>`<div class="lb-row${r.u===me?' my-row':''}"><span class="lb-rank">${medals[i]||i+1}</span><span class="lb-name">${r.u===me?'<strong>'+r.u+'</strong>':r.u}</span><span class="lb-time">⏱ ${fmtTime(r.t)}</span></div>`).join('');
+  w.innerHTML=`<div class="lb-card"><div class="lb-hdr">🏆 أسرع اللاعبين — إنهاء جميع المراحل</div>${rows}</div><div style="text-align:center;color:rgba(255,255,255,.4);font-size:.8rem;margin-top:.5rem;">يُحسب إجمالي وقت جميع المراحل</div>`;
+}
+function renderProf(){
   const d=getSave();
-  document.getElementById('profileName').innerHTML=isOwner()?`<span class="admin-owner-badge">👑 ADMIN</span> ${currentUser.username}`:currentUser.username;
-  document.getElementById('pTotalCoins').textContent=d.totalCoins;
-  document.getElementById('pLevelsUnlocked').textContent=isOwner()?15:d.unlockedLevels.length;
-  document.getElementById('pBestLevel').textContent=isOwner()?15:Math.max(...d.unlockedLevels,1);
-  document.getElementById('pItems').textContent=d.ownedItems.length;
+  document.getElementById('profName').innerHTML=isOwner()?`<span class="adm-own">👑 ADMIN</span> ${curUser.u}`:curUser.u;
+  document.getElementById('pCoins').textContent=d.totalCoins;
+  document.getElementById('pUnlocked').textContent=isOwner()?15:d.unlocked.length;
+  document.getElementById('pBest').textContent=isOwner()?15:Math.max(...d.unlocked,1);
+  document.getElementById('pItems').textContent=d.items.length;
   const list=document.getElementById('ownedList');
-  list.innerHTML=d.ownedItems.length===0?'<span style="color:rgba(255,255,255,.4);font-size:.85rem;">لا توجد مقتنيات بعد</span>':d.ownedItems.map(id=>{const it=SHOP_ITEMS.find(s=>s.id===id);return it?`<span class="owned-tag">${it.icon} ${it.name}</span>`:''}).join('');}
+  list.innerHTML=d.items.length===0?'<span style="color:rgba(255,255,255,.35);font-size:.82rem;">لا توجد مقتنيات بعد</span>':d.items.map(id=>{const it=ITEMS.find(s=>s.id===id);return it?`<span class="own-tag">${it.n}</span>`:''}).join('');
+}
+function switchTab(t){
+  document.querySelectorAll('.tab-p').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-b').forEach(b=>b.classList.remove('active'));
+  const p=document.getElementById(t+'Tab');if(p)p.classList.add('active');
+  const b=document.querySelector(`[onclick="switchTab('${t}')"]`);if(b)b.classList.add('active');
+  if(t==='shop')renderShop();
+  if(t==='lb')renderLB();
+  if(t==='prof')renderProf();
+}
 
-function switchTab(tab){
-  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  const pane=document.getElementById(tab+'Tab');if(pane)pane.classList.add('active');
-  const btn=document.querySelector(`[onclick="switchTab('${tab}')"]`);if(btn)btn.classList.add('active');
-  if(tab==='shop')renderShop();if(tab==='profile')renderProfile();}
+// ===================== CANVAS RESIZE =====================
+function resizeCanvas(){
+  if(!canvas||gameState!=='playing')return;
+  const cw=wrap.clientWidth,ch=wrap.clientHeight;
+  const scale=Math.min(cw/CFG.W,ch/CFG.H,1);
+  canvas.style.width=Math.round(CFG.W*scale)+'px';
+  canvas.style.height=Math.round(CFG.H*scale)+'px';
+}
 
+// ===================== GAME CLASSES =====================
 class Player{
-  constructor(x,y){this.x=x;this.y=y;this.w=CONFIG.player.width;this.h=CONFIG.player.height;this.vx=0;this.vy=0;this.onGround=false;this.dir=1;this.invincible=false;this.invTimer=0;this.jumpsLeft=1;}
-  get spd(){return CONFIG.player.speed*(getSave().ownedItems.includes('speed')?1.4:1);}
+  constructor(x,y){this.x=x;this.y=y;this.vx=0;this.vy=0;this.gr=false;this.dir=1;this.inv=false;this.invT=0;this.jLeft=1;}
+  get spd(){return CFG.pSpd*(getSave().items.includes('speed')?1.4:1);}
   update(){
     if(keys['ArrowRight']||keys['d']){this.vx=this.spd;this.dir=1;}
     else if(keys['ArrowLeft']||keys['a']){this.vx=-this.spd;this.dir=-1;}
     else this.vx=0;
-    if((keys[' ']||keys['ArrowUp']||keys['w'])&&!keys._ju){
-      const dj=getSave().ownedItems.includes('doublejump');
-      if(this.onGround){this.vy=-CONFIG.player.jumpPower;this.onGround=false;this.jumpsLeft=dj?1:0;keys._ju=true;}
-      else if(dj&&this.jumpsLeft>0){this.vy=-CONFIG.player.jumpPower*.85;this.jumpsLeft--;keys._ju=true;}
+    if((keys[' ']||keys['ArrowUp']||keys['w'])&&!keys._j){
+      const dj=getSave().items.includes('doublejump');
+      if(this.gr){this.vy=-CFG.pJmp;this.gr=false;this.jLeft=dj?1:0;keys._j=true;}
+      else if(dj&&this.jLeft>0){this.vy=-CFG.pJmp*.85;this.jLeft--;keys._j=true;}
     }
-    if(!keys[' ']&&!keys['ArrowUp']&&!keys['w'])keys._ju=false;
-    if(!this.onGround){this.vy+=CONFIG.player.gravity;if(this.vy>CONFIG.player.maxFall)this.vy=CONFIG.player.maxFall;}
+    if(!keys[' ']&&!keys['ArrowUp']&&!keys['w'])keys._j=false;
+    if(!this.gr){this.vy+=CFG.grav;if(this.vy>CFG.maxFall)this.vy=CFG.maxFall;}
     this.x+=this.vx;this.y+=this.vy;
-    if(this.x<0)this.x=0;if(this.x+this.w>CONFIG.canvas.width)this.x=CONFIG.canvas.width-this.w;
-    if(this.y>CONFIG.canvas.height){this.hit();return;}
-    this.onGround=false;let sp=null;
-    platforms.forEach(p=>{if(this.x<p.x+p.width&&this.x+this.w>p.x&&this.y+this.h>p.y&&this.y+this.h<p.y+p.height+12&&this.vy>=0){this.y=p.y-this.h;this.vy=0;this.onGround=true;this.jumpsLeft=getSave().ownedItems.includes('doublejump')?2:1;sp=p;}});
-    if(sp?.type==='moving')this.x+=sp.moveSpeed*sp.moveDir;
-    if(this.invincible){this.invTimer--;if(this.invTimer<=0)this.invincible=false;}
-    if(getSave().ownedItems.includes('magnet'))coins.forEach(c=>{if(!c.collected){const dx=(this.x+this.w/2)-(c.x+13),dy=(this.y+this.h/2)-(c.y+13),dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){c.x+=dx/dist*5;c.y+=dy/dist*5;}}});}
+    if(this.x<0)this.x=0;if(this.x+CFG.pW>CFG.W)this.x=CFG.W-CFG.pW;
+    if(this.y>CFG.H+50){this.hit();return;}
+    this.gr=false;let sp=null;
+    for(const p of platforms){
+      if(this.x<p.x+p.w&&this.x+CFG.pW>p.x&&this.y+CFG.pH>p.y&&this.y+CFG.pH<p.y+p.h+14&&this.vy>=0){
+        this.y=p.y-CFG.pH;this.vy=0;this.gr=true;this.jLeft=getSave().items.includes('doublejump')?2:1;sp=p;break;
+      }
+    }
+    if(sp?.mv)this.x+=sp.mSpd*sp.mDir;
+    if(this.inv){this.invT--;if(this.invT<=0)this.inv=false;}
+    if(getSave().items.includes('magnet'))coins.forEach(c=>{if(!c.got){const dx=(this.x+CFG.pW/2)-(c.x+13),dy=(this.y+CFG.pH/2)-(c.y+13),dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){c.x+=dx/dist*5;c.y+=dy/dist*5;}}});
+  }
   draw(){
-    if(this.invincible&&Math.floor(Date.now()/80)%2===0)return;
-    const cx=this.x+this.w/2;ctx.save();
-    ctx.fillStyle='#1a2340';ctx.beginPath();ctx.roundRect(this.x+4,this.y+16,this.w-8,this.h-16,6);ctx.fill();
+    if(this.inv&&Math.floor(Date.now()/80)%2===0)return;
+    const cx=this.x+CFG.pW/2;ctx.save();
+    ctx.fillStyle='#1a2340';ctx.beginPath();ctx.roundRect(this.x+4,this.y+16,CFG.pW-8,CFG.pH-16,6);ctx.fill();
     ctx.fillStyle='#243050';ctx.beginPath();ctx.arc(cx,this.y+12,13,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#ff2e63';ctx.fillRect(this.x+4,this.y+7,this.w-8,6);
+    ctx.fillStyle='#ff2e63';ctx.fillRect(this.x+4,this.y+7,CFG.pW-8,6);
     ctx.fillStyle='#08d9d6';ctx.fillRect(this.dir>0?cx+2:cx-8,this.y+5,6,4);
     ctx.strokeStyle='#08d9d6';ctx.lineWidth=2.5;ctx.shadowColor='#08d9d6';ctx.shadowBlur=8;ctx.beginPath();
-    if(this.dir>0){ctx.moveTo(this.x+this.w,this.y+24);ctx.lineTo(this.x+this.w+18,this.y+14);}
+    if(this.dir>0){ctx.moveTo(this.x+CFG.pW,this.y+24);ctx.lineTo(this.x+CFG.pW+18,this.y+14);}
     else{ctx.moveTo(this.x,this.y+24);ctx.lineTo(this.x-18,this.y+14);}ctx.stroke();
-    if(this.invincible&&shieldTimer>0){ctx.strokeStyle='#00ff88';ctx.lineWidth=3;ctx.shadowColor='#00ff88';ctx.shadowBlur=15;ctx.beginPath();ctx.arc(cx,this.y+this.h/2,this.w/2+8,0,Math.PI*2);ctx.stroke();}
-    ctx.restore();}
-  hit(){if(this.invincible)return;if(isOwner())return;lives--;updateHUD();this.invincible=true;this.invTimer=90;this.x=50;this.y=300;this.vx=0;this.vy=0;if(lives<=0)setTimeout(endGame,200);}
-}
-class Platform{
-  constructor(x,y,w,t='normal'){this.x=x;this.y=y;this.width=w;this.height=18;this.type=t;this.moveDir=1;this.moveSpeed=2;this.originX=x;this.range=120;}
-  update(){if(this.type==='moving'){this.x+=this.moveSpeed*this.moveDir;if(Math.abs(this.x-this.originX)>this.range)this.moveDir*=-1;}}
-  draw(){ctx.save();ctx.shadowColor=this.type==='moving'?'#08d9d6':'#ff6b35';ctx.shadowBlur=8;const g=ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.height);this.type==='moving'?(g.addColorStop(0,'#08d9d6'),g.addColorStop(1,'#056b6b')):(g.addColorStop(0,'#e05020'),g.addColorStop(1,'#8b2500'));ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(this.x,this.y,this.width,this.height,5);ctx.fill();ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.lineWidth=1;ctx.stroke();ctx.restore();}
-}
-class Coin{
-  constructor(x,y,v=1){this.x=x;this.y=y;this.w=26;this.h=26;this.collected=false;this.value=v;this.phase=Math.random()*Math.PI*2;}
-  update(){this.phase+=0.06;}
-  draw(){if(this.collected)return;const fy=this.y+Math.sin(this.phase)*4;ctx.save();ctx.shadowColor='#ffbb00';ctx.shadowBlur=12;const g=ctx.createRadialGradient(this.x+13,fy+10,3,this.x+13,fy+13,13);g.addColorStop(0,'#ffe566');g.addColorStop(1,'#ff8c00');ctx.fillStyle=g;ctx.beginPath();ctx.arc(this.x+13,fy+13,12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff8';ctx.font='bold 10px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('💎',this.x+13,fy+13);ctx.restore();}
-  check(p){if(this.collected)return;if(p.x<this.x+this.w&&p.x+p.w>this.x&&p.y<this.y+this.h&&p.y+p.h>this.y){this.collected=true;const m=getSave().ownedItems.includes('coinboost')?2:1;score+=10*this.value*m;coinsThisLevel+=this.value;updateHUD();}}
-}
-class Enemy{
-  constructor(x,platform){this.platform=platform;this.w=CONFIG.enemy.width;this.h=CONFIG.enemy.height;this.x=x;this.y=platform.y-this.h;this.dir=1;this.speed=CONFIG.enemy.speed;}
-  update(){this.x+=this.speed*this.dir;if(this.x+this.w>=this.platform.x+this.platform.width){this.x=this.platform.x+this.platform.width-this.w;this.dir=-1;}if(this.x<=this.platform.x){this.x=this.platform.x;this.dir=1;}this.y=this.platform.y-this.h;}
-  draw(){const cx=this.x+this.w/2;ctx.save();ctx.fillStyle='#8b0000';ctx.beginPath();ctx.roundRect(this.x+3,this.y+14,this.w-6,this.h-14,5);ctx.fill();ctx.fillStyle='#c0392b';ctx.beginPath();ctx.arc(cx,this.y+10,12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7b0000';[[cx-9,this.y+3],[cx+9,this.y+3]].forEach(([hx,hy])=>{ctx.beginPath();ctx.moveTo(hx-4,hy+6);ctx.lineTo(hx,hy-2);ctx.lineTo(hx+4,hy+6);ctx.fill();});ctx.fillStyle='#ff0000';ctx.shadowColor='#ff0000';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(cx-5,this.y+9,3,0,Math.PI*2);ctx.arc(cx+5,this.y+9,3,0,Math.PI*2);ctx.fill();ctx.restore();}
-  check(p){if(p.invincible)return;if(p.x<this.x+this.w-4&&p.x+p.w>this.x+4&&p.y<this.y+this.h&&p.y+p.h>this.y+4)p.hit();}
-}
-class Fire{
-  constructor(x,y){this.x=x;this.y=y;this.w=36;this.h=44;this.phase=Math.random()*Math.PI*2;}
-  update(){this.phase+=0.08;}
-  draw(){const fl=Math.sin(this.phase)*5;ctx.save();[['#ff2e63',0],['#ff6b35',10],['#ffbb00',18]].forEach(([c,o])=>{ctx.fillStyle=c;ctx.shadowColor=c;ctx.shadowBlur=12;ctx.beginPath();ctx.moveTo(this.x+this.w/2,this.y+fl+o);ctx.lineTo(this.x+o/2,this.y+this.h);ctx.lineTo(this.x+this.w-o/2,this.y+this.h);ctx.closePath();ctx.fill();});ctx.restore();}
-  check(p){if(p.invincible)return;if(p.x<this.x+this.w-4&&p.x+p.w>this.x+4&&p.y<this.y+this.h&&p.y+p.h>this.y+6)p.hit();}
-}
-
-function loadLevel(n){
-  platforms=[];coins=[];enemies=[];fires=[];coinsThisLevel=0;
-  document.querySelectorAll('.ap-lvl-btn').forEach(b=>b.classList.toggle('ap-active',parseInt(b.textContent)===n));
-  const d=getSave();shieldTimer=d.ownedItems.includes('shield')?600:0;
-  const B=(x,y,w,t='normal')=>{const p=new Platform(x,y,w,t);platforms.push(p);return p;};
-  const C=(x,y,v=1)=>coins.push(new Coin(x,y,v));
-  const E=(x,p)=>enemies.push(new Enemy(x,p));
-  const F=(x,y)=>fires.push(new Fire(x,y));
-  B(0,480,1000);// أرضية دائمة
-  if(n===1){
-    B(150,400,180);B(380,330,180);B(620,260,180);B(820,185,160);
-    C(220,360);C(450,290);C(690,220);C(870,145);C(500,440);C(100,440);C(900,440);
-  }else if(n===2){
-    B(100,420,150);B(320,360,140,'moving');B(540,295,140);B(740,228,140,'moving');B(290,165,160);
-    C(150,380);C(370,320);C(590,255);C(780,188);C(350,125);C(700,440);C(200,440);
-  }else if(n===3){
-    B(100,420,150);const p2=B(300,360,180);B(530,295,150);const p4=B(710,228,170);B(880,160,110);
-    C(150,380);C(420,320);C(570,255);C(780,188);C(900,120);C(200,440);C(650,440);
-    E(330,p2);E(740,p4);F(455,432);F(615,432);
-  }else if(n===4){
-    B(80,420,130);B(280,360,130);B(480,295,130);const p4=B(680,228,150);B(850,160,130);B(350,175,120);
-    C(110,380);C(315,320);C(510,255);C(720,188);C(895,120);C(370,135);C(200,440);C(790,440);
-    E(700,p4);F(175,432);F(385,432);F(575,432);F(745,432);F(915,432);
-  }else if(n===5){
-    B(50,440,100);const pm=B(200,380,110,'moving');B(370,320,110);const pm2=B(540,260,120,'moving');B(700,200,110);B(450,145,120);
-    C(80,400);C(240,340);C(415,280);C(580,220);C(740,160);C(490,105);C(600,440);C(110,440);
-    E(280,pm);F(305,432);F(630,432);
-  }else if(n===6){
-    const pm1=B(80,420,120,'moving');pm1.moveSpeed=3;const pm2=B(280,360,120,'moving');pm2.moveSpeed=3;
-    const pm3=B(480,300,120,'moving');pm3.moveSpeed=3.5;const pm4=B(680,245,130,'moving');pm4.moveSpeed=3.5;
-    B(855,185,140);B(345,155,120);
-    C(110,380);C(315,320);C(515,260);C(715,205);C(895,145);C(375,115);E(690,pm4);
-    F(195,432);F(435,432);F(615,432);F(795,432);
-  }else if(n===7){
-    B(60,450,90);B(220,400,90);const p3=B(375,350,110);B(535,295,90);const p5=B(695,240,110);
-    B(555,180,90);B(375,120,120);B(175,180,90);
-    C(90,410);C(255,360);C(428,310);C(575,255);C(740,200);C(595,140);C(415,80);C(215,140);
-    E(395,p3);E(710,p5);F(155,432);F(455,432);F(775,432);
-  }else if(n===8){
-    B(100,460,90);B(100,375,90);B(100,290,90);B(100,205,90);B(100,115,90);
-    const p2=B(280,385,130,'moving');const p3=B(495,305,130);const p4=B(695,228,130,'moving');B(845,150,130);
-    [460,375,290,205,115].forEach((y,i)=>C(135,y-25));
-    C(328,345);C(555,265);C(755,188);C(893,110);
-    E(308,p2);E(710,p4);F(378,432);F(570,432);F(768,432);
-  }else if(n===9){// سرية 1 ×3
-    B(50,440,120);B(240,380,120,'moving');B(420,320,120);B(600,260,120,'moving');B(778,200,120);
-    B(195,225,100);B(495,155,120,'moving');B(345,85,200);
-    for(let i=0;i<6;i++)C(80+i*155,435-i*38,3);for(let i=0;i<5;i++)C(140+i*175,380-i*58,3);
-    [365,420,475,530].forEach(x=>C(x,48,3));F(295,432);F(670,432);
-  }else if(n===10){
-    const MP=(x,y,w,sp)=>{const p=B(x,y,w,'moving');p.moveSpeed=sp;return p;};
-    const p1=MP(80,435,110,2.5);const p2=MP(255,375,110,3);const p3=MP(430,315,110,3.5);const p4=MP(608,255,110,3);const p5=MP(788,195,110,2.5);
-    MP(175,215,100,2);MP(440,150,120,2.5);
-    C(108,395);C(290,335);C(467,275);C(645,215);C(825,155);C(222,175);C(479,110);
-    E(268,p2);E(624,p4);for(let i=0;i<5;i++)F(155+i*185,432);
-  }else if(n===11){
-    const p2=B(248,375,125,'moving');const p3=B(435,315,125);const p4=B(625,255,125,'moving');const p5=B(808,195,125);
-    B(178,210,100);B(495,148,130);
-    C(108,395);C(288,335);C(475,275);C(662,215);C(848,155);C(208,170);C(535,108);
-    E(258,p2);E(455,p3);E(638,p4);for(let i=0;i<9;i++)F(48+i*103,432);
-  }else if(n===12){
-    const p1=B(30,468,80);const p2=B(168,420,80,'moving');const p3=B(305,372,80);const p4=B(442,324,80,'moving');
-    const p5=B(578,276,80);const p6=B(715,228,80,'moving');B(855,180,90);
-    B(195,188,80);B(415,130,80,'moving');B(635,80,80);B(350,32,120);
-    [p1,p2,p3,p4,p5,p6].forEach((p,i)=>C(p.x+25,p.y-28));
-    C(218,158);C(435,100);C(655,52);C(390,5);
-    E(178,p2);E(452,p4);F(235,432);F(512,432);F(778,432);
-  }else if(n===13){// سرية 2 ×5
-    B(50,450,100);B(208,400,100,'moving');B(365,350,100);B(522,300,100,'moving');B(678,250,100);
-    B(198,230,90);B(415,172,90,'moving');B(632,118,90);B(345,58,180);
-    for(let i=0;i<8;i++)C(78+i*118,445-i*48,5);for(let i=0;i<6;i++)C(365+i*48,22,5);
-    C(425,62,5);C(472,62,5);F(295,432);F(592,432);F(840,432);
-  }else if(n===14){
-    const MP=(x,y,w,sp)=>{const p=B(x,y,w,'moving');p.moveSpeed=sp;return p;};
-    const ps=[MP(58,445,95,3),MP(195,398,95,3.5),MP(332,351,95,4),MP(469,304,95,3.5),MP(606,257,95,4),MP(743,210,95,3)];
-    MP(195,188,90,2.5);MP(468,132,100,3);B(692,78,120);B(342,28,150);
-    ps.forEach((p,i)=>C(p.x+28,p.y-28));C(225,148);C(498,92);C(715,42);C(380,-5);
-    ps.forEach(p=>E(p.x+8,p));for(let i=0;i<8;i++)F(75+i*118,432);
-  }else if(n===15){
-    const FL=88;
-    const f1a=B(0,480,280);B(360,480,200,'moving');B(640,480,360);
-    const f2a=B(55,480-FL,130);const f2b=B(252,480-FL,140,'moving');B(452,480-FL,130);const f2d=B(682,480-FL,200);
-    B(125,480-FL*2,120);const f3b=B(322,480-FL*2,130,'moving');B(518,480-FL*2,130,'moving');B(722,480-FL*2,150);
-    const f4a=B(85,480-FL*3,110,'moving');B(282,480-FL*3,110);const f4c=B(478,480-FL*3,110,'moving');B(698,480-FL*3,110);
-    B(352,480-FL*4-8,280);
-    for(let i=0;i<8;i++)C(367+i*28,480-FL*4-45,5);
-    [0,1,2,3].forEach(fl=>{for(let i=0;i<4;i++)C(95+i*225,480-FL*fl-35,2+fl);});
-    E(58,f1a);E(652,B(640,480,360));E(262,f2b);E(700,f2d);E(332,f3b);
-    E(292,B(282,480-FL*3,110));E(708,B(698,480-FL*3,110));
-    [0,1,3].forEach(fl=>{for(let i=0;i<5;i++)F(95+i*175,480-FL*fl-44);});
+    if(this.inv&&shieldT>0){ctx.strokeStyle='#00ff88';ctx.lineWidth=3;ctx.shadowColor='#00ff88';ctx.shadowBlur=15;ctx.beginPath();ctx.arc(cx,this.y+CFG.pH/2,CFG.pW/2+8,0,Math.PI*2);ctx.stroke();}
+    ctx.restore();
   }
-  player=new Player(50,320);
-  if(shieldTimer>0){player.invincible=true;player.invTimer=shieldTimer;}
+  hit(){if(this.inv)return;if(isOwner())return;lives--;updHUD();this.inv=true;this.invT=90;this.x=60;this.y=300;this.vx=0;this.vy=0;if(lives<=0)setTimeout(gameOver,200);}
 }
 
-function updateHUD(){
-  document.getElementById('scoreDisplay').textContent=score;
-  document.getElementById('livesDisplay').textContent=isOwner()?'∞':lives;
-  document.getElementById('levelDisplay').textContent=currentLevel;
-  const sh=document.getElementById('shieldHud'),sp=document.getElementById('speedHud');
-  if(sh)sh.style.display=(player?.invincible&&shieldTimer>0)?'block':'none';
-  if(sp)sp.style.display=getSave().ownedItems.includes('speed')?'block':'none';}
-function updateTime(){gameTime++;const m=Math.floor(gameTime/60),s=gameTime%60;document.getElementById('timeDisplay').textContent=`${m}:${s.toString().padStart(2,'0')}`;}
+class Plat{
+  constructor(x,y,w,mv=false){this.x=x;this.y=y;this.w=w;this.h=18;this.mv=mv;this.mDir=1;this.mSpd=2;this.ox=x;this.range=120;}
+  update(){if(this.mv){this.x+=this.mSpd*this.mDir;if(Math.abs(this.x-this.ox)>this.range)this.mDir*=-1;}}
+  draw(){
+    ctx.save();ctx.shadowColor=this.mv?'#08d9d6':'#e05020';ctx.shadowBlur=7;
+    const g=ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.h);
+    this.mv?(g.addColorStop(0,'#08d9d6'),g.addColorStop(1,'#056b6b')):(g.addColorStop(0,'#d04818'),g.addColorStop(1,'#7b2200'));
+    ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(this.x,this.y,this.w,this.h,5);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.2)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
+  }
+}
 
+class Coin{
+  constructor(x,y,v=1){this.x=x;this.y=y;this.got=false;this.v=v;this.ph=Math.random()*Math.PI*2;}
+  update(){this.ph+=0.06;}
+  draw(){
+    if(this.got)return;
+    const fy=this.y+Math.sin(this.ph)*4;ctx.save();
+    ctx.shadowColor='#ffbb00';ctx.shadowBlur=12;
+    const g=ctx.createRadialGradient(this.x+13,fy+10,3,this.x+13,fy+13,12);
+    g.addColorStop(0,'#ffe566');g.addColorStop(1,'#ff8c00');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(this.x+13,fy+13,12,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='bold 9px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('💎',this.x+13,fy+13);
+    ctx.restore();
+  }
+  check(p){
+    if(this.got)return;
+    if(p.x<this.x+26&&p.x+CFG.pW>this.x&&p.y<this.y+26&&p.y+CFG.pH>this.y){
+      this.got=true;const m=getSave().items.includes('coinboost')?2:1;score+=10*this.v*m;coinsLvl+=this.v;updHUD();
+    }
+  }
+}
+
+class Enemy{
+  constructor(x,plat){this.pl=plat;this.x=x;this.y=plat.y-CFG.eH;this.dir=1;this.spd=CFG.eSpd;}
+  update(){
+    this.x+=this.spd*this.dir;
+    if(this.x+CFG.eW>=this.pl.x+this.pl.w){this.x=this.pl.x+this.pl.w-CFG.eW;this.dir=-1;}
+    if(this.x<=this.pl.x){this.x=this.pl.x;this.dir=1;}
+    this.y=this.pl.y-CFG.eH;
+  }
+  draw(){
+    const cx=this.x+CFG.eW/2;ctx.save();
+    ctx.fillStyle='#8b0000';ctx.beginPath();ctx.roundRect(this.x+3,this.y+14,CFG.eW-6,CFG.eH-14,5);ctx.fill();
+    ctx.fillStyle='#c0392b';ctx.beginPath();ctx.arc(cx,this.y+10,12,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#7b0000';[[cx-9,this.y+3],[cx+9,this.y+3]].forEach(([hx,hy])=>{ctx.beginPath();ctx.moveTo(hx-4,hy+6);ctx.lineTo(hx,hy-2);ctx.lineTo(hx+4,hy+6);ctx.fill();});
+    ctx.fillStyle='#ff0000';ctx.shadowColor='#ff0000';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(cx-5,this.y+9,3,0,Math.PI*2);ctx.arc(cx+5,this.y+9,3,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+  check(p){if(p.inv)return;if(p.x<this.x+CFG.eW-4&&p.x+CFG.pW>this.x+4&&p.y<this.y+CFG.eH&&p.y+CFG.pH>this.y+4)p.hit();}
+}
+
+class Fire{
+  constructor(x,y){this.x=x;this.y=y;this.ph=Math.random()*Math.PI*2;}
+  update(){this.ph+=0.08;}
+  draw(){
+    const fl=Math.sin(this.ph)*5;ctx.save();
+    [['#ff2e63',0,40],['#ff6b35',8,32],['#ffbb00',16,22]].forEach(([c,o,h])=>{
+      ctx.fillStyle=c;ctx.shadowColor=c;ctx.shadowBlur=12;ctx.beginPath();
+      ctx.moveTo(this.x+16,this.y+fl+o);ctx.lineTo(this.x+o/2,this.y+h+o);ctx.lineTo(this.x+32-o/2,this.y+h+o);ctx.closePath();ctx.fill();
+    });ctx.restore();
+  }
+  check(p){if(p.inv)return;if(p.x<this.x+28&&p.x+CFG.pW>this.x+4&&p.y<this.y+44&&p.y+CFG.pH>this.y+10)p.hit();}
+}
+
+// ===================== LEVEL BUILDER =====================
+function loadLvl(n){
+  platforms=[];coins=[];enemies=[];fires=[];coinsLvl=0;
+  document.querySelectorAll('.ap-lb').forEach(b=>b.classList.toggle('on',parseInt(b.textContent)===n));
+  const d=getSave();shieldT=d.items.includes('shield')?600:0;
+  const B=(x,y,w,mv=false)=>{const p=new Plat(x,y,w,mv);platforms.push(p);return p;};
+  const C=(x,y,v=1)=>{coins.push(new Coin(x,y,v));};
+  const E=(x,pl)=>{enemies.push(new Enemy(x,pl));};
+  // النار: ارتفاعها 44px، قاعدتها على الأرضية y=480 → top = 436
+  const F=(x,y)=>{fires.push(new Fire(x, y!==undefined ? y : 436));};
+
+  // أرضية ثابتة دائماً
+  B(0,480,CFG.W);
+
+  if(n===1){
+    // تعليمية: منصات واسعة، لا أعداء، لا نار
+    B(120,400,200);B(380,330,200);B(640,260,200);B(820,185,160);
+    C(200,360);C(460,290);C(720,220);C(880,145);
+    C(500,440);C(100,440);C(900,440);
+
+  }else if(n===2){
+    // منصات متحركة بسيطة
+    B(80,410,160);const pm1=B(310,350,150,true);B(560,285,150);const pm2=B(760,220,150,true);B(280,160,170);
+    C(140,370);C(370,310);C(620,245);C(820,180);C(360,120);
+    C(700,440);C(180,440);
+
+  }else if(n===3){
+    // أعداء + فخاخ أول مرة
+    const p1=B(80,420,160);const p2=B(310,360,190);B(560,295,155);const p4=B(740,232,175);B(900,165,100);
+    C(140,380);C(400,320);C(620,255);C(820,192);C(920,125);C(200,440);C(650,440);
+    E(330,p2);E(760,p4);
+    // نار بين المنصات
+    F(240);F(480);
+
+  }else if(n===4){
+    // نار كثيرة - 5 نيران موزعة
+    const p1=B(80,420,130);const p2=B(280,360,130);const p3=B(490,300,130);const p4=B(700,238,150);B(870,170,120);
+    C(110,380);C(320,320);C(530,260);C(750,198);C(910,130);C(185,440);C(800,440);
+    E(710,p4);
+    // 5 نيران موزعة على الأرضية فقط
+    F(165);F(375);F(575);F(770);F(940);
+
+  }else if(n===5){
+    // توازن ودقة
+    const p1=B(50,440,110);const pm=B(210,380,120,true);B(390,320,115);const pm2=B(570,260,125,true);B(730,200,115);B(460,140,130);
+    C(85,400);C(255,340);C(435,280);C(620,220);C(775,160);C(505,100);
+    C(600,440);C(110,440);
+    E(280,pm);
+    F(310);F(650);
+
+  }else if(n===6){
+    // سرعة - منصات سريعة
+    const mk=(x,y,w,sp)=>{const p=B(x,y,w,true);p.mSpd=sp;return p;};
+    const pm1=mk(80,430,130,3.2);const pm2=mk(290,370,130,3.2);const pm3=mk(500,310,130,3.8);const pm4=mk(710,250,135,3.8);B(870,190,130);B(340,155,120);
+    C(115,390);C(330,330);C(545,270);C(755,210);C(910,150);C(380,115);
+    E(720,pm4);
+    F(200);F(430);F(630);F(820);
+
+  }else if(n===7){
+    // متاهة
+    const p1=B(60,455,90);const p2=B(220,405,90);const p3=B(380,355,110);const p4=B(540,300,90);const p5=B(700,245,110);
+    B(560,185,90);B(380,125,120);B(175,185,90);
+    C(90,415);C(255,365);C(430,315);C(580,260);C(745,205);C(600,145);C(420,85);C(215,145);
+    E(395,p3);E(715,p5);
+    F(155);F(455);F(775);
+
+  }else if(n===8){
+    // أبراج - صعود عمودي
+    B(100,455,95);B(100,370,95);B(100,285,95);B(100,200,95);B(100,115,95);
+    const p2=B(285,380,135,true);const p3=B(510,302,130);const p4=B(710,228,135,true);B(860,155,130);
+    [455,370,285,200,115].forEach(y=>C(135,y-25));
+    C(335,340);C(565,262);C(770,188);C(905,115);
+    E(315,p2);E(725,p4);
+    F(380);F(575);F(780);
+
+  }else if(n===9){
+    // سرية 1 ×3 - لا أعداء، لا نار
+    B(50,445,130);B(240,385,130,true);B(420,325,130);B(600,265,130,true);B(780,205,130);
+    B(195,230,105);B(495,160,125,true);B(350,88,210);
+    // كوين ×3 في كل مكان
+    for(let i=0;i<6;i++)C(70+i*160,440-i*40,3);
+    for(let i=0;i<5;i++)C(130+i*180,385-i*58,3);
+    [360,415,470,525].forEach(x=>C(x,48,3));
+
+  }else if(n===10){
+    // عاصفة - كل شيء سريع
+    const mk=(x,y,w,sp)=>{const p=B(x,y,w,true);p.mSpd=sp;return p;};
+    const p2=mk(255,380,115,3.2);const p3=mk(440,320,115,3.8);const p4=mk(625,260,115,3.2);
+    mk(80,440,115,2.5);mk(810,200,115,2.5);mk(175,218,100,2);mk(455,155,120,2.5);
+    C(108,400);C(295,340);C(478,280);C(663,220);C(845,160);C(222,178);C(490,115);
+    E(270,p2);E(645,p4);
+    for(let i=0;i<5;i++)F(150+i*190);
+
+  }else if(n===11){
+    // جحيم - نار على الأرضية بمسافات صحيحة
+    const p2=B(248,378,130,true);const p3=B(445,316,130);const p4=B(638,258,130,true);B(815,198,130);
+    B(178,215,105);B(500,153,130);
+    C(115,400);C(295,338);C(485,278);C(672,218);C(858,158);C(210,175);C(540,113);
+    E(265,p2);E(462,p3);E(652,p4);
+    // 6 نيران موزعة بالتساوي - كلها على الأرضية (y=436 افتراضي)
+    F(55);F(210);F(375);F(545);F(715);F(885);
+
+  }else if(n===12){
+    // فراغ - منصات ضيقة
+    const ps=[];
+    ps.push(B(30,465,85));ps.push(B(170,418,85,true));ps.push(B(310,371,85));ps.push(B(448,324,85,true));
+    ps.push(B(586,277,85));ps.push(B(724,230,85,true));B(862,183,95);
+    B(200,193,85);B(420,135,85,true);B(640,83,85);B(355,33,125);
+    ps.forEach((p)=>C(p.x+28,p.y-28));
+    C(222,163);C(440,105);C(660,55);C(395,8);
+    E(180,ps[1]);E(458,ps[3]);
+    F(240);F(515);F(785);
+
+  }else if(n===13){
+    // سرية 2 ×5 - لا نار في المنتصف
+    B(50,453,105);B(210,403,105,true);B(368,353,105);B(525,303,105,true);B(682,253,105);
+    B(200,233,95);B(418,175,95,true);B(636,122,95);B(348,62,185);
+    for(let i=0;i<8;i++)C(78+i*120,448-i*48,5);
+    for(let i=0;i<6;i++)C(368+i*48,26,5);
+    C(428,66,5);C(475,66,5);
+    F(300);F(595);
+
+  }else if(n===14){
+    // فوضى - منصات أكبر وواضحة، قابل للفوز
+    const mk=(x,y,w,sp)=>{const p=B(x,y,w,true);p.mSpd=sp;return p;};
+    // طابق 1 - منصات متحركة بطيئة
+    const p1=mk(30, 440,160,2.0);
+    const p2=mk(240,400,160,2.2);
+    const p3=mk(480,360,160,2.0);
+    const p4=mk(720,320,160,2.2);
+    // طابق 2 - منصات ثابتة
+    const p5=B(80, 255,170);
+    const p6=B(330,215,170);
+    const p7=B(600,175,170);
+    // طابق 3 - هدف
+    const p8=B(360,115,260);
+    // كوين
+    C(p1.x+60,p1.y-30);C(p2.x+60,p2.y-30);C(p3.x+60,p3.y-30);C(p4.x+60,p4.y-30);
+    C(140,215);C(400,175);C(680,135);
+    C(430,75);C(530,75);C(480,35);
+    // أعداء فقط على المنصات المتحركة الكبيرة
+    E(p1.x+10,p1);E(p3.x+10,p3);E(p4.x+10,p4);
+    // 4 نيران موزعة
+    F(130);F(355);F(580);F(820);
+
+  }else if(n===15){
+    // برج الملك 👑 - 5 طوابق واضحة
+    const FL=82;
+    // طابق 1 (y=480-82=398)
+    const t1L=B(0,   480-FL,   260);
+    const t1M=B(370, 480-FL,   200,true);
+    const t1R=B(660, 480-FL,   340);
+    // طابق 2 (y=316)
+    const t2a=B(50,  480-FL*2, 150);
+    const t2b=B(270, 480-FL*2, 160,true);
+    const t2c=B(480, 480-FL*2, 150);
+    const t2d=B(700, 480-FL*2, 200);
+    // طابق 3 (y=234)
+    const t3a=B(110, 480-FL*3, 135);
+    const t3b=B(325, 480-FL*3, 145,true);
+    const t3c=B(540, 480-FL*3, 145,true);
+    const t3d=B(750, 480-FL*3, 150);
+    // طابق 4 (y=152)
+    const t4a=B(80,  480-FL*4, 130,true);
+    const t4b=B(290, 480-FL*4, 130);
+    const t4c=B(510, 480-FL*4, 130,true);
+    const t4d=B(730, 480-FL*4, 130);
+    // طابق 5 - العرش (y=70)
+    B(330, 480-FL*5, 310);
+    // كوين القمة ×5
+    for(let i=0;i<8;i++) C(345+i*32, 480-FL*5-45, 5);
+    // كوين في الطوابق
+    C(100,480-FL-35);C(460,480-FL-35);C(750,480-FL-35);
+    C(120,480-FL*2-35);C(510,480-FL*2-35);C(780,480-FL*2-35);
+    C(175,480-FL*3-35);C(610,480-FL*3-35);
+    C(340,480-FL*4-35);C(640,480-FL*4-35);
+    // أعداء فقط على المنصات الكبيرة الثابتة
+    E(t1L.x+60, t1L);
+    E(t1R.x+60, t1R);
+    E(t2b.x+30, t2b);
+    E(t3b.x+30, t3b);
+    E(t4b.x+30, t4b);
+    // نار فقط على الأرضية الرئيسية (لا نار في الطوابق العلوية)
+    F(100);F(280);F(460);F(650);F(840);
+  }
+
+  player=new Player(60,320);
+  if(shieldT>0){player.inv=true;player.invT=shieldT;}
+}
+
+// ===================== HUD =====================
+function updHUD(){
+  document.getElementById('scorD').textContent=score;
+  document.getElementById('livD').textContent=isOwner()?'∞':lives;
+  document.getElementById('lvlD').textContent=curLvl;
+  const sh=document.getElementById('shdH'),sp=document.getElementById('spdH');
+  if(sh)sh.style.display=(player?.inv&&shieldT>0)?'block':'none';
+  if(sp)sp.style.display=getSave().items.includes('speed')?'block':'none';
+}
+function updTime(){gTime++;const m=Math.floor(gTime/60),s=gTime%60;document.getElementById('timeD').textContent=`${m}:${String(s).padStart(2,'0')}`;}
+
+// ===================== GAME LOOP =====================
 function gameLoop(){
   if(gameState!=='playing')return;
-  ctx.clearRect(0,0,CONFIG.canvas.width,CONFIG.canvas.height);
+  ctx.clearRect(0,0,CFG.W,CFG.H);
   drawBG();
   platforms.forEach(p=>{p.update();p.draw();});
   coins.forEach(c=>{c.update();c.draw();c.check(player);});
   fires.forEach(f=>{f.update();f.draw();f.check(player);});
   enemies.forEach(e=>{e.update();e.draw();e.check(player);});
   player.update();player.draw();
-  if(shieldTimer>0)shieldTimer--;
-  if(coins.length>0&&coins.every(c=>c.collected))completeLevel();}
+  if(shieldT>0)shieldT--;
+  if(coins.length>0&&coins.every(c=>c.got))winLevel();
+}
 
 function drawBG(){
-  const lv=LVL[currentLevel-1];let c1='#070b1a',c2='#0d1230';
-  if(lv?.diff==='hard'||lv?.boss){c1='#120308';c2='#200510';}
-  if(lv?.secret){c1='#0a0820';c2='#150d30';}
-  if(currentLevel===15){c1='#1a0a00';c2='#300d00';}
-  const g=ctx.createLinearGradient(0,0,0,CONFIG.canvas.height);g.addColorStop(0,c1);g.addColorStop(1,c2);
-  ctx.fillStyle=g;ctx.fillRect(0,0,CONFIG.canvas.width,CONFIG.canvas.height);
-  ctx.fillStyle='rgba(255,255,255,0.3)';
-  for(let i=0;i<40;i++)ctx.fillRect((i*173)%CONFIG.canvas.width,(i*317)%CONFIG.canvas.height,1+(i%3)*.4,1+(i%3)*.4);
-  if(lv){ctx.save();ctx.globalAlpha=0.08;ctx.font='bold 90px serif';ctx.fillStyle=lv.secret?'#ff69b4':lv.boss?'#cc44ff':'#08d9d6';ctx.textAlign='center';ctx.fillText(lv.icon,CONFIG.canvas.width/2,CONFIG.canvas.height/2+45);ctx.restore();}}
+  const lv=LVLS[curLvl-1];
+  let c1='#070b1a',c2='#0d1230';
+  if(lv?.d==='hard'||lv?.boss){c1='#130308';c2='#220612';}
+  if(lv?.sec){c1='#0a0820';c2='#160d32';}
+  if(curLvl===15){c1='#1c0a00';c2='#340e00';}
+  const g=ctx.createLinearGradient(0,0,0,CFG.H);g.addColorStop(0,c1);g.addColorStop(1,c2);
+  ctx.fillStyle=g;ctx.fillRect(0,0,CFG.W,CFG.H);
+  ctx.fillStyle='rgba(255,255,255,.28)';
+  for(let i=0;i<40;i++)ctx.fillRect((i*173)%CFG.W,(i*317)%CFG.H,1+(i%3)*.4,1+(i%3)*.4);
+  if(lv){ctx.save();ctx.globalAlpha=.07;ctx.font='bold 90px serif';ctx.fillStyle=lv.sec?'#ff69b4':lv.boss?'#cc44ff':'#08d9d6';ctx.textAlign='center';ctx.fillText(lv.ic,CFG.W/2,CFG.H/2+45);ctx.restore();}
+}
 
+// ===================== GAME FLOW =====================
 function startGame(lvl=1){
-  currentLevel=lvl;score=0;gameTime=0;
-  const d=getSave();lives=isOwner()?999:(d.ownedItems.includes('extralives')?5:3);
-  canvas.width=CONFIG.canvas.width;canvas.height=CONFIG.canvas.height;
-  loadLevel(currentLevel);updateHUD();gameState='playing';showScreen('gameScreen');
-  const ap=document.getElementById('adminPanel');if(ap)ap.style.display=isOwner()?'block':'none';
-  const iu=document.getElementById('ingameUser');
-  if(iu)iu.innerHTML=isOwner()?`<span class="admin-badge">👑 ADMIN</span> ${currentUser.username}`:currentUser.username;
-  clearInterval(gameInterval);clearInterval(timeInterval);
-  gameLoop();gameInterval=setInterval(gameLoop,1000/60);timeInterval=setInterval(updateTime,1000);}
-function pauseGame(){if(gameState!=='playing')return;gameState='paused';clearInterval(gameInterval);clearInterval(timeInterval);showScreen('pauseScreen');}
-function resumeGame(){if(gameState!=='paused')return;gameState='playing';showScreen('gameScreen');gameInterval=setInterval(gameLoop,1000/60);timeInterval=setInterval(updateTime,1000);}
-function endGame(){
-  gameState='gameover';clearInterval(gameInterval);clearInterval(timeInterval);
-  document.getElementById('go_score').textContent=score;document.getElementById('go_level').textContent=currentLevel;
-  const m=Math.floor(gameTime/60),s=gameTime%60;document.getElementById('go_time').textContent=`${m}:${s.toString().padStart(2,'0')}`;
-  document.getElementById('go_stars').textContent='⭐'.repeat(calcStars(score));showScreen('gameOverScreen');}
-function completeLevel(){
-  if(gameState==='levelComplete')return;
-  gameState='levelComplete';clearInterval(gameInterval);clearInterval(timeInterval);
-  addCoins(coinsThisLevel);const d=getSave();const stars=calcStars(score);
-  d.completedLevels[currentLevel]=true;
-  if(!d.levelStars[currentLevel]||d.levelStars[currentLevel]<stars)d.levelStars[currentLevel]=stars;
-  if(currentLevel<15&&!d.unlockedLevels.includes(currentLevel+1))d.unlockedLevels.push(currentLevel+1);
-  if(currentLevel===8&&!d.unlockedLevels.includes(9)){d.unlockedLevels.push(9);showNotif('🎁 فتحت مرحلة سرية: الكنز! ×3');}
-  if(currentLevel===12&&!d.unlockedLevels.includes(13)){d.unlockedLevels.push(13);showNotif('🎁 فتحت سرية 2: ×5 !');}
-  setSave(d);
-  const m=Math.floor(gameTime/60),s=gameTime%60;
-  document.getElementById('lc_score').textContent=score;
-  document.getElementById('lc_coins').textContent='+'+coinsThisLevel+(d.ownedItems.includes('coinboost')?' ×2':'');
-  document.getElementById('lc_time').textContent=`${m}:${s.toString().padStart(2,'0')}`;
-  document.getElementById('lc_stars').textContent='⭐'.repeat(stars);showScreen('levelCompleteScreen');}
-function calcStars(s){return s>=150?3:s>=80?2:s>=30?1:0;}
-function nextLevel(){const nx=currentLevel+1;if(nx>15)goToMenu();else startGame(nx);}
-function goToMenu(){clearInterval(gameInterval);clearInterval(timeInterval);gameState='menu';initMain();showScreen('mainScreen');}
-function adminGoToLevel(l){startGame(l);}
-function adminToggleInvincible(){if(!player)return;player.invincible=!player.invincible;player.invTimer=player.invincible?999999:0;const b=document.getElementById('btnInvincible');if(b)b.classList.toggle('ap-active',player.invincible);}
-function adminSkipLevel(){completeLevel();}
-function adminAddLives(){lives=999;updateHUD();}
+  curLvl=lvl;score=0;gTime=0;
+  // لا نعيد تعيين lvlTimes إذا واصلنا من القائمة في نفس الجلسة
+  const d=getSave();lives=isOwner()?999:(d.items.includes('extralives')?5:3);
+  canvas.width=CFG.W;canvas.height=CFG.H;
+  loadLvl(curLvl);updHUD();gameState='playing';showSc('gameScreen');
+  resizeCanvas();
+  const ap=document.getElementById('admPanel');if(ap)ap.style.display=isOwner()?'block':'none';
+  const iu=document.getElementById('ingUser');
+  if(iu)iu.innerHTML=isOwner()?`<span class="adm-badge">👑</span> ${curUser.u}`:curUser.u;
+  clearInterval(gInt);clearInterval(tInt);
+  gameLoop();gInt=setInterval(gameLoop,1000/60);tInt=setInterval(updTime,1000);
+}
 
+function pauseGame(){if(gameState!=='playing')return;gameState='paused';clearInterval(gInt);clearInterval(tInt);showSc('pauseScreen');}
+function resumeGame(){if(gameState!=='paused')return;gameState='playing';showSc('gameScreen');gInt=setInterval(gameLoop,1000/60);tInt=setInterval(updTime,1000);}
+
+function gameOver(){
+  if(gameState==='gameover')return;
+  gameState='gameover';clearInterval(gInt);clearInterval(tInt);
+  document.getElementById('goSc').textContent=score;document.getElementById('goLv').textContent=curLvl;
+  document.getElementById('goTm').textContent=fmtTime(gTime);
+  document.getElementById('goSt').textContent='⭐'.repeat(calcStars(score));
+  showSc('overScreen');
+}
+
+function winLevel(){
+  if(gameState==='levelComplete')return;
+  gameState='levelComplete';clearInterval(gInt);clearInterval(tInt);
+  // حفظ وقت هذه المرحلة
+  lvlTimes[curLvl]=gTime;
+  addCoins(coinsLvl);
+  const d=getSave();const stars=calcStars(score);
+  d.completed[curLvl]=true;
+  // حفظ أفضل وقت للمرحلة
+  if(!d.lvlBestTimes)d.lvlBestTimes={};
+  if(!d.lvlBestTimes[curLvl]||gTime<d.lvlBestTimes[curLvl])d.lvlBestTimes[curLvl]=gTime;
+  if(!d.stars[curLvl]||d.stars[curLvl]<stars)d.stars[curLvl]=stars;
+  if(curLvl<15&&!d.unlocked.includes(curLvl+1))d.unlocked.push(curLvl+1);
+  if(curLvl===8&&!d.unlocked.includes(9)){d.unlocked.push(9);notif('🎁 فتحت مرحلة سرية: الكنز! ×3');}
+  if(curLvl===12&&!d.unlocked.includes(13)){d.unlocked.push(13);notif('🎁 فتحت سرية 2! ×5');}
+  // إذا أتمّ جميع المراحل الـ 15
+  if(curLvl===15){
+    // حساب إجمالي الوقت
+    const totalSecs=Object.values(lvlTimes).reduce((a,b)=>a+b,0);
+    // حفظ في اليدربورد إذا لم يكن owner
+    if(!isOwner()&&curUser?.u){
+      submitLBScore(curUser.u,totalSecs);
+      notif('🏆 وقتك الإجمالي: '+fmtTime(totalSecs)+' — تم حفظه في المتصدرين!',4000);
+    }
+    // تصفير lvlTimes للجولة القادمة
+    lvlTimes={};
+  }
+  setSave(d);
+  document.getElementById('lcSc').textContent=score;
+  document.getElementById('lcCo').textContent='+'+coinsLvl+(d.items.includes('coinboost')?' ×2':'');
+  document.getElementById('lcTm').textContent=fmtTime(gTime);
+  document.getElementById('lcSt').textContent='⭐'.repeat(stars);
+  showSc('winScreen');
+}
+
+function calcStars(s){return s>=150?3:s>=80?2:s>=30?1:0;}
+function goMenu(){clearInterval(gInt);clearInterval(tInt);gameState='menu';lvlTimes={};initMain();showSc('mainScreen');}
+function nextLevel(){const nx=curLvl+1;if(nx>15)goMenu();else startGame(nx);}
+
+// ===================== ADMIN =====================
+function aInv(){if(!player)return;player.inv=!player.inv;player.invT=player.inv?999999:0;const b=document.getElementById('invBtn');if(b)b.classList.toggle('on',player.inv);}
+function aSkip(){winLevel();}
+function aLives(){lives=999;updHUD();}
+
+// ===================== EVENTS =====================
 document.addEventListener('DOMContentLoaded',()=>{
-  canvas=document.getElementById('gameCanvas');ctx=canvas.getContext('2d');
-  const ag=document.getElementById('apLevelGrid');
-  if(ag){for(let i=1;i<=15;i++){const b=document.createElement('button');b.className='ap-lvl-btn';b.textContent=i;b.onclick=()=>adminGoToLevel(i);ag.appendChild(b);}}
-  document.getElementById('registerForm').addEventListener('submit',e=>{e.preventDefault();const r=registerUser(document.getElementById('reg_user').value.trim(),document.getElementById('reg_pass').value,document.getElementById('reg_confirm').value);if(r.ok){initMain();showScreen('mainScreen');}else document.getElementById('reg_error').textContent=r.msg;});
-  document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();const r=loginUser(document.getElementById('log_user').value.trim(),document.getElementById('log_pass').value);if(r.ok){initMain();showScreen('mainScreen');}else document.getElementById('log_error').textContent=r.msg;});
-  document.getElementById('toLogin').onclick=e=>{e.preventDefault();document.getElementById('log_error').textContent='';showScreen('loginScreen');};
-  document.getElementById('toRegister').onclick=e=>{e.preventDefault();document.getElementById('reg_error').textContent='';showScreen('registerScreen');};
-  document.getElementById('logoutBtn').onclick=()=>{if(confirm('تسجيل خروج؟'))logoutUser();};
+  canvas=document.getElementById('gameCanvas');
+  ctx=canvas.getContext('2d');
+  wrap=document.getElementById('canvasWrap');
+
+  // أزرار أدمن
+  const ag=document.getElementById('apGrid');
+  for(let i=1;i<=15;i++){const b=document.createElement('button');b.className='ap-lb';b.textContent=i;b.onclick=()=>startGame(i);ag.appendChild(b);}
+
+  // تسجيل
+  document.getElementById('regForm').onsubmit=e=>{
+    e.preventDefault();
+    const r=register(document.getElementById('rU').value.trim(),document.getElementById('rP').value,document.getElementById('rC').value);
+    if(r.ok){initMain();showSc('mainScreen');}else document.getElementById('rErr').textContent=r.m;
+  };
+  // دخول
+  document.getElementById('logForm').onsubmit=e=>{
+    e.preventDefault();
+    const r=login(document.getElementById('lU').value.trim(),document.getElementById('lP').value);
+    if(r.ok){initMain();showSc('mainScreen');}else document.getElementById('lErr').textContent=r.m;
+  };
+  document.getElementById('toLog').onclick=e=>{e.preventDefault();document.getElementById('lErr').textContent='';showSc('logScreen');};
+  document.getElementById('toReg').onclick=e=>{e.preventDefault();document.getElementById('rErr').textContent='';showSc('regScreen');};
+  document.getElementById('logoutBtn').onclick=()=>{if(confirm('تسجيل خروج؟'))logout();};
   document.getElementById('pauseBtn').onclick=pauseGame;
   document.getElementById('resumeBtn').onclick=resumeGame;
-  document.getElementById('restartBtn').onclick=()=>startGame(currentLevel);
-  document.getElementById('quitBtn').onclick=goToMenu;
-  document.getElementById('playAgainBtn').onclick=()=>startGame(currentLevel);
-  document.getElementById('goToMenuBtn').onclick=goToMenu;
-  document.getElementById('nextLevelBtn').onclick=nextLevel;
-  document.getElementById('lc_menuBtn').onclick=goToMenu;
-  document.addEventListener('keydown',e=>{keys[e.key]=true;if([' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();if(e.key==='Escape'){if(gameState==='playing')pauseGame();else if(gameState==='paused')resumeGame();}});
+  document.getElementById('restartBtn').onclick=()=>startGame(curLvl);
+  document.getElementById('quitBtn').onclick=goMenu;
+  document.getElementById('againBtn').onclick=()=>startGame(curLvl);
+  document.getElementById('goMenuBtn').onclick=goMenu;
+  document.getElementById('nextBtn').onclick=nextLevel;
+  document.getElementById('lcMenuBtn').onclick=goMenu;
+
+  // لوحة المفاتيح
+  document.addEventListener('keydown',e=>{
+    keys[e.key]=true;
+    if([' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();
+    if(e.key==='Escape'){if(gameState==='playing')pauseGame();else if(gameState==='paused')resumeGame();}
+  });
   document.addEventListener('keyup',e=>{keys[e.key]=false;});
   window.addEventListener('blur',()=>{if(gameState==='playing')pauseGame();});
-  if(checkLogin()){initMain();showScreen('mainScreen');}
-  else{const h=localStorage.getItem('nj2_account');showScreen(h?'loginScreen':'registerScreen');}
+
+  // تغيير حجم النافذة
+  window.addEventListener('resize',resizeCanvas);
+
+  // بدء
+  if(chkLogin()){initMain();showSc('mainScreen');}
+  else{const h=localStorage.getItem('nj3_acc');showSc(h?'logScreen':'regScreen');}
 });
 </script>
 </body>
